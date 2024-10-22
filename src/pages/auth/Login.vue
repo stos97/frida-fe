@@ -1,9 +1,9 @@
 <template>
   <ion-page>
     <ion-content>
-      <p v-if="isLoading">Loading</p>
+      <base-spinner v-if="isLoading"></base-spinner>
       <p v-if="!!error">{{ error }}</p>
-      <form class="ion-padding" @submit.prevent="submitForm">
+      <form class="ion-padding" @submit.prevent="submitForm" >
         <ion-list>
           <ion-item>
             <ion-label>
