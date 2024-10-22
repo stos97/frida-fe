@@ -1,9 +1,6 @@
 export default {
     async login(context, payload) {
-
-        const url = "http://frida.test/api/auth/login";
-
-        const response = await fetch(url, {
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/auth/login', {
             method: 'POST',
             headers: {
                 "Accept": "application/json",
@@ -30,10 +27,7 @@ export default {
         });
     },
     async register(context, payload) {
-        const url = "http://frida.test/api/auth/register";
-
-        console.log(payload)
-        const response = await fetch(url, {
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/auth/register', {
             method: 'POST',
             headers: {
                 "Accept": "application/json",
@@ -60,6 +54,31 @@ export default {
         context.commit('setUser', {
             token: token,
             user: responseData.user,
+        });
+    },
+    async tryLogin(context) {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            return;
+        }
+
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/profile', {
+            method: 'GET',
+            headers: {
+                "Accept": "application/json",
+                'Authorization': 'Bearer '+ token
+            },
+        });
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            throw new Error(responseData.message || 'Failed to fetch user')
+        }
+
+        context.commit('setUser', {
+            token: token,
+            user: responseData.data,
         });
     }
 };
