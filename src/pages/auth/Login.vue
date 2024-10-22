@@ -65,6 +65,7 @@ export default {
           password: this.password
         })
 
+        this.$router.replace(this.$store.getters.user.role);
       } catch (err) {
         this.error = err.message || 'Invalid Credentials!';
       }
