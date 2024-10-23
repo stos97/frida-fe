@@ -53,8 +53,9 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
     if (to.meta.authRequired && !store.getters.isAuthenticated) {
         next('/login');
+    } else {
+        next();
     }
-    next();
 });
 
 export default router
