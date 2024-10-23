@@ -15,9 +15,8 @@ export default {
   async mounted() {
     await this.$store.dispatch('tryLogin')
     if (this.$store.getters.isAuthenticated) {
-      this.$router.replace(this.$store.getters.user.role)
+      this.$router.replace('/' + this.$store.getters.user.role)
     }
-
   }
 }
 </script>
