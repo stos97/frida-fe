@@ -80,5 +80,28 @@ export default {
             token: token,
             user: responseData.data,
         });
+    },
+    async logout(context) {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/auth/logout', {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                'Authorization': 'Bearer '+ token
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to logout')
+        }
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+
+        context.commit('setUser', {
+            token: null,
+            user: null,
+        });
     }
 };
