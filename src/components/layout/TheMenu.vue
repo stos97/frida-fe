@@ -51,7 +51,6 @@ export default {
       const role = this.$store.getters.user.role;
 
       if (role === 'admin') {
-        console.log(role)
         return [
           {
             redirectTo: '/user',
