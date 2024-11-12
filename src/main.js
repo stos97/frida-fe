@@ -34,8 +34,8 @@ import '@ionic/vue/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import store from "@/store/index.js";
-import BaseSpinner from "@/base/BaseSpinner.vue";
-import BaseLayout from "@/base/BaseLayout.vue";
+import BaseSpinner from "@/components/base/BaseSpinner.vue";
+import BaseLayout from "@/components/base/BaseLayout.vue";
 
 const app = createApp(App)
     .use(IonicVue)
