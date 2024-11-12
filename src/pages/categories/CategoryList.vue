@@ -4,31 +4,18 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <h2 class="ion-padding-start">Kategorije</h2>
-      <ion-list>
-        <ion-item v-for="category in categories" :key="category.id">
-          <ion-label>
-            {{ category.name }}
-          </ion-label>
-
-          <ion-button
-              slot="end"
-              color="danger"
-              @click="deleteCategory(category)"
-          >
-            Obrisi
-          </ion-button>
-        </ion-item>
-      </ion-list>
+      <category-item v-for="category in categories" :key="category.id" :category="category" @delete-category="deleteCategory"></category-item>
     </div>
   </base-layout>
 </template>
 
 <script>
 
-import {IonItem, IonList, IonButton, IonLabel, IonTitle} from "@ionic/vue";
+import {IonList, IonButton, IonLabel, IonTitle} from "@ionic/vue";
+import CategoryItem from "@/components/categories/CategoryItem.vue";
 
 export default {
-  components: {IonItem, IonList, IonButton, IonLabel, IonTitle},
+  components: {CategoryItem, IonList, IonButton, IonLabel, IonTitle},
   data() {
     return {
       isLoading: false,
@@ -54,12 +41,12 @@ export default {
       }
       this.isLoading = false;
     },
-    async deleteCategory(category) {
+    async deleteCategory(id) {
       this.isLoading = true;
       try {
         await this.$store.dispatch("deleteCategory", {
-          id: category.id
-        })
+          id
+        });
         this.isLoading = false;
       } catch (err) {
         this.error = err.message || 'Invalid Credentials!';
