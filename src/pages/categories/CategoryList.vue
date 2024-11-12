@@ -54,8 +54,17 @@ export default {
       }
       this.isLoading = false;
     },
-    deleteCategory(category) {
-      console.log(category.id)
+    async deleteCategory(category) {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("deleteCategory", {
+          id: category.id
+        })
+        this.isLoading = false;
+      } catch (err) {
+        this.error = err.message || 'Invalid Credentials!';
+      }
+      this.isLoading = false;
     }
   }
 }

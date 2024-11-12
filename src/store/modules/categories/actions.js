@@ -17,5 +17,25 @@ export default {
         context.commit('setCategories', {
             categories: responseData.data,
         })
+    },
+    async deleteCategory(context, payload) {
+        const id = payload.id;
+
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/categories/' + id, {
+            method: 'DELETE',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete!')
+        }
+
+        context.commit('deleteCategory', {
+            id: id
+        })
     }
 };
