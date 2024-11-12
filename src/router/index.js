@@ -41,6 +41,13 @@ const routes = [
         },
     },
     {
+        path: '/categories',
+        component: () => import("@/pages/categories/CategoryList.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
         path: '/:notFound(.*)', component: () => import("@/NotFound.vue")
     },
 ]

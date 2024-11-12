@@ -15,6 +15,7 @@
       </ion-header>
       <ion-content class="ion-padding">
         <slot></slot>
+        <slot name="fab-button"></slot>
       </ion-content>
     </ion-page>
   </div>
