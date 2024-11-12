@@ -55,13 +55,13 @@ export default {
       if (role === 'admin') {
         return [
           {
+            redirectTo: '/admin',
+            menuName: 'Pocetna'
+          },
+          {
             redirectTo: '/categories',
             menuName: 'Kategorije'
           },
-          {
-            redirectTo: '/test',
-            menuName: 'test'
-          }
         ];
       } else {
         return [

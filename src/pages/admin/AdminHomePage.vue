@@ -7,11 +7,9 @@
 
 <script>
 
-import BaseLayout from "@/components/base/BaseLayout.vue";
 
 
 export default {
-  components: {BaseLayout}
 
 }
 </script>
