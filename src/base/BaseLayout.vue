@@ -7,7 +7,7 @@
           <ion-buttons slot="start">
             <ion-back-button :default-href="pageDefaultBackLink"></ion-back-button>
           </ion-buttons>
-          <ion-title>{{ pageTitle }}</ion-title>
+          <ion-title>{{ pageTitle ?? "Frida Beauty" }}</ion-title>
           <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
           </ion-buttons>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons} from '@ionic/vue'
+import {IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonMenuButton} from '@ionic/vue'
 import TheMenu from "@/components/layout/TheMenu.vue";
 
 export default {
@@ -35,6 +35,7 @@ export default {
     IonBackButton,
     IonButtons,
     TheMenu,
+    IonMenuButton,
   }
 }
 </script>

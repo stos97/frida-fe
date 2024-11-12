@@ -97,7 +97,6 @@ export default {
         }
 
         localStorage.removeItem('token');
-        localStorage.removeItem('user');
 
         context.commit('setUser', {
             token: null,

@@ -1,5 +1,5 @@
 <template>
-  <base-layout page-title="Home Page">
+  <base-layout>
 
     Admin Home Page
   </base-layout>

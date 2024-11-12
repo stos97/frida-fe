@@ -15,14 +15,17 @@
 </template>
 
 <script>
-import {IonContent, IonHeader, IonTitle, IonToolbar, menuController} from "@ionic/vue";
+import {IonContent, IonHeader, IonTitle, IonToolbar, menuController, IonItem, IonList, IonMenu} from "@ionic/vue";
 
 export default {
   components: {
     IonContent,
     IonHeader,
     IonTitle,
-    IonToolbar
+    IonToolbar,
+    IonItem,
+    IonList,
+    IonMenu,
   },
   data() {
     return {
@@ -34,7 +37,6 @@ export default {
   },
   methods: {
     async navigateTo(to) {
-      console.log(to)
       await menuController.close('menu')
       this.$router.push(to);
     },
@@ -42,7 +44,7 @@ export default {
       try {
         await this.$store.dispatch('logout');
         await menuController.close('menu')
-        this.$router.push('/login');
+        window.location.assign('/');
       } catch (err) {
         console.log(err)
       }
