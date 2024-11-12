@@ -55,8 +55,8 @@ export default {
       if (role === 'admin') {
         return [
           {
-            redirectTo: '/user',
-            menuName: 'Users'
+            redirectTo: '/categories',
+            menuName: 'Kategorije'
           },
           {
             redirectTo: '/test',
