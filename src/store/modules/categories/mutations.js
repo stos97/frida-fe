@@ -4,5 +4,8 @@ export default {
     },
     deleteCategory(state, payload) {
         state.categories = state.categories.filter(category => category.id !== payload.id);
+    },
+    addCategory(state, payload) {
+        state.categories.push(payload.category);
     }
 }
