@@ -8,17 +8,23 @@
         color="danger"
         @click="handleDelete(category)"
     >
-      Obrisi
+      <ion-icon :icon="trash"></ion-icon>
     </ion-button>
   </ion-item>
 </template>
 <script>
-import {IonButton, IonItem, IonLabel} from "@ionic/vue";
+import {IonButton, IonIcon, IonItem, IonLabel} from "@ionic/vue";
+import {trash} from "ionicons/icons";
 
 export default {
-  components: {IonButton, IonItem, IonLabel},
+  components: {IonIcon, IonButton, IonItem, IonLabel},
   props: ['category'],
   emits: ['delete-category'],
+  data() {
+    return {
+      trash
+    }
+  },
   methods: {
     handleDelete(category) {
       this.$emit('delete-category', category.id);
