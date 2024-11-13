@@ -3,7 +3,7 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-back-button :default-href="pageDefaultBackLink"></ion-back-button>
+            <ion-back-button :default-href="pageDefaultBackLink" v-if="showBackButton"></ion-back-button>
           </ion-buttons>
           <ion-title>{{ pageTitle ?? "Frida Beauty" }}</ion-title>
           <ion-buttons slot="end">
@@ -22,7 +22,14 @@
 import {IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonMenuButton} from '@ionic/vue'
 
 export default {
-  props: ['pageTitle', 'pageDefaultBackLink'],
+  props: {
+    pageTitle: String,
+    pageDefaultBackLink: String,
+    showBackButton: {
+      type: Boolean,
+      default: true
+    }
+  },
   components: {
     IonPage,
     IonHeader,

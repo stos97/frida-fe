@@ -1,6 +1,5 @@
 <template>
-  <base-layout>
-
+  <base-layout :showBackButton="false">
     Admin Home Page
   </base-layout>
 </template>
