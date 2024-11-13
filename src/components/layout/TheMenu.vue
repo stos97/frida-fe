@@ -66,7 +66,7 @@ export default {
       } else {
         return [
           {
-            redirectTo: '/users',
+            redirectTo: '/user',
             menuName: 'Users'
           }
         ]

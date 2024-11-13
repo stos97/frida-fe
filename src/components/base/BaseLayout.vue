@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <TheMenu/>
-    <ion-page id="main-content">
+    <ion-page>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
@@ -18,7 +16,6 @@
         <slot name="fab-button"></slot>
       </ion-content>
     </ion-page>
-  </div>
 </template>
 
 <script>
