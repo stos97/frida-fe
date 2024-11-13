@@ -1,6 +1,7 @@
 <template>
   <ion-app>
-    <ion-router-outlet/>
+    <TheMenu v-if="isAuthenticated"/>
+    <ion-router-outlet id="main-content"/>
   </ion-app>
 </template>
 
@@ -12,9 +13,14 @@ export default {
     IonApp,
     IonRouterOutlet
   },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    }
+  },
   async mounted() {
     await this.$store.dispatch('tryLogin')
-    if (this.$store.getters.isAuthenticated) {
+    if (this.isAuthenticated) {
       this.$router.replace('/' + this.$store.getters.user.role)
     }
   }

@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <TheMenu/>
-    <ion-page id="main-content">
+    <ion-page>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-back-button :default-href="pageDefaultBackLink"></ion-back-button>
+            <ion-back-button
+                v-if="showBackButton"
+                :default-href="pageDefaultBackLink"
+                :icon="chevronBack"
+            ></ion-back-button>
           </ion-buttons>
           <ion-title>{{ pageTitle ?? "Frida Beauty" }}</ion-title>
           <ion-buttons slot="end">
@@ -18,15 +20,26 @@
         <slot name="fab-button"></slot>
       </ion-content>
     </ion-page>
-  </div>
 </template>
 
 <script>
 import {IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonMenuButton} from '@ionic/vue'
-import TheMenu from "@/components/layout/TheMenu.vue";
+import {chevronBack} from "ionicons/icons";
 
 export default {
-  props: ['pageTitle', 'pageDefaultBackLink'],
+  data() {
+    return {
+      chevronBack,
+    }
+  },
+  props: {
+    pageTitle: String,
+    pageDefaultBackLink: String,
+    showBackButton: {
+      type: Boolean,
+      default: true
+    }
+  },
   components: {
     IonPage,
     IonHeader,
@@ -35,7 +48,6 @@ export default {
     IonToolbar,
     IonBackButton,
     IonButtons,
-    TheMenu,
     IonMenuButton,
   }
 }

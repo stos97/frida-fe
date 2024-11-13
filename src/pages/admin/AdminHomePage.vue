@@ -1,17 +1,11 @@
 <template>
-  <base-layout>
-
+  <base-layout :showBackButton="false">
     Admin Home Page
   </base-layout>
 </template>
 
 <script>
-
-import BaseLayout from "@/components/base/BaseLayout.vue";
-
-
 export default {
-  components: {BaseLayout}
 
 }
 </script>

@@ -36,6 +36,7 @@ import './theme/variables.css';
 import store from "@/store/index.js";
 import BaseSpinner from "@/components/base/BaseSpinner.vue";
 import BaseLayout from "@/components/base/BaseLayout.vue";
+import TheMenu from "@/components/layout/TheMenu.vue";
 
 const app = createApp(App)
     .use(IonicVue)
@@ -44,6 +45,7 @@ const app = createApp(App)
 
 app.component('base-spinner', BaseSpinner);
 app.component('base-layout', BaseLayout);
+app.component('TheMenu', TheMenu);
 
 router.isReady().then(() => {
     app.mount('#app');

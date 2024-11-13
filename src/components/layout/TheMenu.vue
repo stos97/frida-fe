@@ -37,13 +37,13 @@ export default {
   },
   methods: {
     async navigateTo(to) {
-      await menuController.close('menu')
+      await menuController.close('menu');
       this.$router.push(to);
     },
     async logout() {
       try {
         await this.$store.dispatch('logout');
-        await menuController.close('menu')
+        await menuController.close('menu');
         window.location.assign('/');
       } catch (err) {
         console.log(err)
@@ -55,18 +55,18 @@ export default {
       if (role === 'admin') {
         return [
           {
+            redirectTo: '/admin',
+            menuName: 'Pocetna'
+          },
+          {
             redirectTo: '/categories',
             menuName: 'Kategorije'
           },
-          {
-            redirectTo: '/test',
-            menuName: 'test'
-          }
         ];
       } else {
         return [
           {
-            redirectTo: '/users',
+            redirectTo: '/user',
             menuName: 'Users'
           }
         ]
