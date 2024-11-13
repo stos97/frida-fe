@@ -3,21 +3,23 @@
     <ion-label>
       {{ category.name }}
     </ion-label>
-    <ion-button
-        slot="end"
-        color="danger"
-        @click="handleDelete(category)"
-    >
-      <ion-icon :icon="trash"></ion-icon>
-    </ion-button>
+    <ion-buttons>
+      <ion-button
+          slot="end"
+          color="danger"
+          @click="handleDelete(category)"
+      >
+        <ion-icon :icon="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-item>
 </template>
 <script>
-import {IonButton, IonIcon, IonItem, IonLabel} from "@ionic/vue";
+import {IonButton, IonIcon, IonItem, IonLabel, IonButtons} from "@ionic/vue";
 import {trash} from "ionicons/icons";
 
 export default {
-  components: {IonIcon, IonButton, IonItem, IonLabel},
+  components: {IonIcon, IonButton, IonItem, IonLabel, IonButtons},
   props: ['category'],
   emits: ['delete-category'],
   data() {

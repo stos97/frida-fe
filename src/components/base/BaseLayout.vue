@@ -3,7 +3,11 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-back-button :default-href="pageDefaultBackLink" v-if="showBackButton"></ion-back-button>
+            <ion-back-button
+                v-if="showBackButton"
+                :default-href="pageDefaultBackLink"
+                :icon="chevronBack"
+            ></ion-back-button>
           </ion-buttons>
           <ion-title>{{ pageTitle ?? "Frida Beauty" }}</ion-title>
           <ion-buttons slot="end">
@@ -20,8 +24,14 @@
 
 <script>
 import {IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonMenuButton} from '@ionic/vue'
+import {chevronBack} from "ionicons/icons";
 
 export default {
+  data() {
+    return {
+      chevronBack,
+    }
+  },
   props: {
     pageTitle: String,
     pageDefaultBackLink: String,
