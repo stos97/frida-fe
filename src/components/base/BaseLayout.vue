@@ -23,7 +23,6 @@
 
 <script>
 import {IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonMenuButton} from '@ionic/vue'
-import TheMenu from "@/components/layout/TheMenu.vue";
 
 export default {
   props: ['pageTitle', 'pageDefaultBackLink'],
@@ -35,7 +34,6 @@ export default {
     IonToolbar,
     IonBackButton,
     IonButtons,
-    TheMenu,
     IonMenuButton,
   }
 }
