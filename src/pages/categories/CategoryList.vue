@@ -45,9 +45,6 @@ export default {
     this.getAllCategories()
   },
   methods: {
-    mounted() {
-      this.presentingElement = this.$refs.page.$el;
-    },
     async getAllCategories() {
       this.isLoading = true;
       try {

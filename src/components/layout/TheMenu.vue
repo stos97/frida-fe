@@ -66,6 +66,10 @@ export default {
             redirectTo: '/services',
             menuName: 'Usluge'
           },
+          {
+            redirectTo: '/additions',
+            menuName: 'Dodaci'
+          },
         ];
       } else {
         return [
