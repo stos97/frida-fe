@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button id="open-modal" @click="toggleModal">
+        <ion-fab-button @click="toggleModal">
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
