@@ -62,6 +62,10 @@ export default {
             redirectTo: '/categories',
             menuName: 'Kategorije'
           },
+          {
+            redirectTo: '/services',
+            menuName: 'Usluge'
+          },
         ];
       } else {
         return [
