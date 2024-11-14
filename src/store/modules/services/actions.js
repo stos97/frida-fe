@@ -1,5 +1,5 @@
 export default {
-    async getAllServices(context, payload) {
+    async getAllServices(context) {
         const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/services', {
             headers: {
                 "Accept": "application/json",
