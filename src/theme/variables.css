@@ -59,4 +59,12 @@
     --ion-color-secondary-contrast-rgb: 0,0,0;
     --ion-color-secondary-shade: #966019;
     --ion-color-secondary-tint: #b37c33;
+
+    ion-content {
+        --background: #fff url('../assets/background-image.png') no-repeat center center / cover;
+    }
+
+    ion-menu ion-content {
+        --background: var(--ion-background-color);
+    }
 }
