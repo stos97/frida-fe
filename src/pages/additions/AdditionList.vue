@@ -11,17 +11,39 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Dodaci</ion-title>
-      <ion-item v-for="addition in additions" :key="addition.id">{{addition.name}}</ion-item>
+      <additions-item
+          v-for="(listOfAdditions, type) in additions"
+          :key="type"
+          :type="type"
+          :additions="listOfAdditions"
+      ></additions-item>
     </div>
   </base-layout>
 </template>
 
 <script>
-import {IonFab, IonFabButton, IonIcon, IonItem, IonTitle} from "@ionic/vue";
+import {
+  IonButton,
+  IonButtons,
+  IonCard, IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonFab,
+  IonFabButton,
+  IonIcon,
+  IonTitle
+} from "@ionic/vue";
 import {add} from 'ionicons/icons';
+import AdditionsItem from "@/components/additions/AdditionsItem.vue";
+import ServiceItem from "@/components/services/ServiceItem.vue";
 
 export default {
-  components: {IonTitle, IonFab, IonFabButton, IonIcon, IonItem},
+  components: {
+    ServiceItem,
+    AdditionsItem,
+    IonCardContent, IonButton, IonButtons, IonCard,
+    IonCardTitle, IonCardHeader, IonTitle, IonFab, IonFabButton, IonIcon
+  },
   data() {
     return {
       isLoading: false,
@@ -32,7 +54,7 @@ export default {
   },
   computed: {
     additions() {
-      return this.$store.getters.additions;
+      return this.$store.getters.transformedAdditions;
     }
   },
   created() {

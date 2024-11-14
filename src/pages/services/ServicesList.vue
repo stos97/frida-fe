@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     services() {
-      return this.$store.getters.filteredServices;
+      return this.$store.getters.transformedServices;
     }
   },
   methods: {

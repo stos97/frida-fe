@@ -2,7 +2,7 @@ export default {
     services(state) {
         return state.services;
     },
-    filteredServices(state) {
+    transformedServices(state) {
         const transformedData = {};
 
         state.services.forEach(service => {
