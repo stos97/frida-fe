@@ -10,7 +10,7 @@
     <base-spinner v-if="isLoading"></base-spinner>
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
-      <ion-title class="ion-padding">Kategorije</ion-title>
+      <ion-title class="ion-padding ion-text-center">Dodaci</ion-title>
       <ion-item v-for="addition in additions" :key="addition.id">{{addition.name}}</ion-item>
     </div>
   </base-layout>

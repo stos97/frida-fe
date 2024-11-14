@@ -10,7 +10,7 @@
     <base-spinner v-if="isLoading"></base-spinner>
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
-      <ion-title class="ion-padding">Kategorije</ion-title>
+      <ion-title class="ion-padding ion-text-center">Kategorije</ion-title>
       <category-item v-for="category in categories" :key="category.id" :category="category"
                      @delete-category="deleteCategory"></category-item>
     </div>

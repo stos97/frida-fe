@@ -10,7 +10,7 @@
     <base-spinner v-if="isLoading"></base-spinner>
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
-      <ion-title class="ion-padding">Usluge</ion-title>
+      <ion-title class="ion-padding ion-text-center">Usluge</ion-title>
       <service-item
           v-for="(listOfServices, categoryName) in services"
           :key="categoryName"
