@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button id="open-modal" @click="toggleModal">
+        <ion-fab-button @click="toggleModal">
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -54,7 +54,7 @@ export default {
         await this.$store.dispatch("getAllCategories")
         this.isLoading = false;
       } catch (err) {
-        this.error = err.message || 'Invalid Credentials!';
+        this.error = err.message || 'Fail to load categories!';
       }
       this.isLoading = false;
     },
@@ -66,7 +66,7 @@ export default {
         });
         this.isLoading = false;
       } catch (err) {
-        this.error = err.message || 'Invalid Credentials!';
+        this.error = err.message || 'Fail to delete category!';
       }
       this.isLoading = false;
     },
