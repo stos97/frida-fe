@@ -11,13 +11,13 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Usluge</ion-title>
-      <service-item
-          v-for="(listOfServices, categoryName) in services"
-          :key="categoryName"
-          :category-name="categoryName"
-          :services="listOfServices"
-          @delete-service="deleteService"
-      ></service-item>
+      <base-card v-for="(listOfServices, categoryName) in services" :key="categoryName" :title="categoryName">
+        <service-item
+            :category-name="categoryName"
+            :services="listOfServices"
+            @delete-service="deleteService"
+        ></service-item>
+      </base-card>
     </div>
   </base-layout>
 </template>

@@ -34,3 +34,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+ion-item {
+  --background: rgba(255,255,255, 0.1);
+  --border-style: none;
+}
+
+</style>

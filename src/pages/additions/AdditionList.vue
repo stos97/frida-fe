@@ -11,12 +11,12 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Dodaci</ion-title>
-      <additions-item
-          v-for="(listOfAdditions, type) in additions"
-          :key="type"
-          :type="type"
-          :additions="listOfAdditions"
-      ></additions-item>
+      <base-card v-for="(listOfAdditions, type) in additions" :key="type" :title="type">
+        <additions-item
+            :type="type"
+            :additions="listOfAdditions"
+        ></additions-item>
+      </base-card>
     </div>
   </base-layout>
 </template>

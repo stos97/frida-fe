@@ -1,26 +1,18 @@
 <template>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ categoryName }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item v-for="service in services" :key="service.id">
-          <ion-label>{{ service.name }}</ion-label>
-          <ion-buttons>
-            <ion-button
-                slot="end"
-                color="danger"
-                @click="handleDelete(service)"
-            >
-              <ion-icon :icon="trash"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+    <ion-item v-for="service in services" :key="service.id">
+      <ion-label>{{ service.name }}</ion-label>
+      <ion-buttons>
+        <ion-button
+            slot="end"
+            color="danger"
+            @click="handleDelete(service)"
+        >
+          <ion-icon :icon="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
 </template>
+
 <script>
 import {
   IonButton,
@@ -53,3 +45,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+ion-item {
+  --background: rgba(255,255,255, 0.1);
+  --border-style: none;
+}
+
+</style>

@@ -1,6 +1,6 @@
 <template>
   <ion-card>
-    <ion-card-header>
+    <ion-card-header v-if="title">
       <ion-card-title class="ion-text-center">{{ title }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>

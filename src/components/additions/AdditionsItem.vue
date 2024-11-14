@@ -1,5 +1,4 @@
 <template>
-  <base-card :title="type">
     <ion-item v-for="addition in additions" :key="addition.id">
       <ion-label>{{ addition.name }}</ion-label>
       <ion-buttons>
@@ -12,7 +11,6 @@
         </ion-button>
       </ion-buttons>
     </ion-item>
-  </base-card>
 </template>
 <script>
 import {IonItem, IonLabel, IonButtons, IonButton, IonIcon} from "@ionic/vue";

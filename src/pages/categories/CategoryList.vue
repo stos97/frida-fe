@@ -11,8 +11,10 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Kategorije</ion-title>
+      <base-card>
       <category-item v-for="category in categories" :key="category.id" :category="category"
                      @delete-category="deleteCategory"></category-item>
+      </base-card>
     </div>
 
     <CreateCategoryModal @close="toggleModal" :is-modal-open="isModalOpen"></CreateCategoryModal>
