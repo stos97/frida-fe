@@ -54,7 +54,7 @@ export default {
         await this.$store.dispatch("getAllCategories")
         this.isLoading = false;
       } catch (err) {
-        this.error = err.message || 'Invalid Credentials!';
+        this.error = err.message || 'Fail to load categories!';
       }
       this.isLoading = false;
     },
@@ -66,7 +66,7 @@ export default {
         });
         this.isLoading = false;
       } catch (err) {
-        this.error = err.message || 'Invalid Credentials!';
+        this.error = err.message || 'Fail to delete category!';
       }
       this.isLoading = false;
     },

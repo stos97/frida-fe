@@ -16,6 +16,7 @@
           :key="categoryName"
           :category-name="categoryName"
           :services="listOfServices"
+          @delete-service="deleteService"
       ></service-item>
     </div>
   </base-layout>
@@ -48,7 +49,7 @@ export default {
   },
   computed: {
     services() {
-      return this.$store.getters.services;
+      return this.$store.getters.filteredServices;
     }
   },
   methods: {
@@ -58,10 +59,22 @@ export default {
     async getAllServices() {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("getAllServices")
+        await this.$store.dispatch('getAllServices')
         this.isLoading = false;
       } catch (err) {
-        this.error = err.message || 'Invalid Credentials!';
+        this.error = err.message || 'Fail to load services!';
+      }
+      this.isLoading = false;
+    },
+    async deleteService(id) {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch('deleteService', {
+          id
+        });
+        this.isLoading = false;
+      } catch (err) {
+        this.error = err.message || 'Fail to delete service!';
       }
       this.isLoading = false;
     }
