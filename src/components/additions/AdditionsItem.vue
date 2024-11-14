@@ -1,31 +1,45 @@
 <template>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{type}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item v-for="addition in additions" :key="addition.id">
-          <ion-label>{{ addition.name }}</ion-label>
-          <!--              <ion-buttons>-->
-          <!--                <ion-button-->
-          <!--                    slot="end"-->
-          <!--                    color="danger"-->
-          <!--                    @click="handleDelete(service)"-->
-          <!--                >-->
-          <!--                  <ion-icon :icon="trash"></ion-icon>-->
-          <!--                </ion-button>-->
-          <!--              </ion-buttons>-->
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <base-card :title="type">
+    <ion-item v-for="addition in additions" :key="addition.id">
+      <ion-label>{{ addition.name }}</ion-label>
+      <ion-buttons>
+        <ion-button
+            slot="end"
+            color="danger"
+            @click="handleDelete(addition)"
+        >
+          <ion-icon :icon="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </base-card>
 </template>
 <script>
-import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonList} from "@ionic/vue";
+import {IonItem, IonLabel, IonButtons, IonButton, IonIcon} from "@ionic/vue";
+import {trash} from 'ionicons/icons';
 
 export default {
   props: ['additions', 'type'],
-  components: {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonList},
+  components: {
+    IonItem, IonLabel, IonButtons, IonButton, IonIcon},
+  data() {
+    return {
+      trash
+    }
+  },
+  methods: {
+    handleDelete(addition) {
+      console.log(addition.id);
+    }
+  },
 }
 </script>
+
+<style scoped>
+
+ion-item {
+  --background: rgba(255,255,255, 0.1);
+  --border-style: none;
+}
+
+</style>
