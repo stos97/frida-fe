@@ -11,25 +11,12 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding">Usluge</ion-title>
-
-      <ion-card v-for="(listOfServices, name) in services" :key="name">
-        <ion-card-header>
-          <ion-card-title>{{ name }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list>
-            <ion-item v-for="service in listOfServices" :key="service.id">
-              <ion-label>{{ service.name }}</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
-
-
-      <!--      <ion-item v-for="(listOfServices, name) in services" :key="name">-->
-      <!--        {{name}}-->
-      <!--        <ion-item v-for="service in listOfServices" :key="service.id">{{service.name}}</ion-item>-->
-      <!--      </ion-item>-->
+      <service-item
+          v-for="(listOfServices, categoryName) in services"
+          :key="categoryName"
+          :category-name="categoryName"
+          :services="listOfServices"
+      ></service-item>
     </div>
   </base-layout>
 </template>
@@ -39,29 +26,17 @@ import {
   IonFabButton,
   IonIcon,
   IonTitle,
-  IonItem,
-  IonList,
-  IonLabel,
-  IonCard,
-  IonCardHeader,
-  IonCardContent,
-  IonCardTitle,
 } from "@ionic/vue";
 import {add} from 'ionicons/icons';
+import ServiceItem from "@/components/services/ServiceItem.vue";
 
 export default {
   components: {
+    ServiceItem,
     IonTitle,
     IonFab,
     IonFabButton,
     IonIcon,
-    IonItem,
-    IonList,
-    IonLabel,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
-    IonCardTitle,
   },
   data() {
     return {
