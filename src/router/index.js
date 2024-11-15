@@ -48,6 +48,13 @@ const routes = [
         },
     },
     {
+        path: '/categories/add',
+        component: () => import("@/pages/categories/AddCategory.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
         path: '/services',
         component: () => import("@/pages/services/ServicesList.vue"),
         meta: {

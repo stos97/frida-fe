@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button @click="toggleModal">
+        <ion-fab-button router-link="/categories/add">
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -16,8 +16,6 @@
                      @delete-category="deleteCategory"></category-item>
       </base-card>
     </div>
-
-    <CreateCategoryModal @close="toggleModal" :is-modal-open="isModalOpen"></CreateCategoryModal>
   </base-layout>
 </template>
 
@@ -26,16 +24,14 @@
 import { IonTitle, IonIcon, IonFab, IonFabButton} from "@ionic/vue";
 import CategoryItem from "@/components/categories/CategoryItem.vue";
 import {add} from 'ionicons/icons';
-import CreateCategoryModal from "@/components/modals/CreateCategoryModal.vue";
 
 export default {
-  components: {CreateCategoryModal, CategoryItem, IonIcon, IonTitle, IonFab, IonFabButton},
+  components: {CategoryItem, IonIcon, IonTitle, IonFab, IonFabButton},
   data() {
     return {
       isLoading: false,
       error: null,
       add,
-      isModalOpen: false,
     }
   },
   computed: {
@@ -68,9 +64,6 @@ export default {
         this.error = err.message || 'Fail to delete category!';
       }
       this.isLoading = false;
-    },
-    toggleModal() {
-      this.isModalOpen = !this.isModalOpen;
     },
   }
 }

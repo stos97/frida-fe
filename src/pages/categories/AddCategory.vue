@@ -1,18 +1,7 @@
 <template>
-  <ion-modal :is-open="isModalOpen">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Dodaj kategoriju</ion-title>
-        <ion-buttons slot="end">
-          <ion-button @click="closeModal()">
-            <ion-icon :icon="close"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
+  <base-layout>
+    <base-card title="Dodaj kategoriju">
       <form class="ion-padding" @submit.prevent="submitForm">
-        <ion-list>
           <ion-item>
             <ion-label>
               <ion-label>Naziv</ion-label>
@@ -21,10 +10,9 @@
           </ion-item>
 
           <ion-button type="submit" expand="block">Dodaj</ion-button>
-        </ion-list>
       </form>
-    </ion-content>
-  </ion-modal>
+    </base-card>
+  </base-layout>
 </template>
 <script>
 import {
@@ -33,48 +21,40 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
-  IonInput, IonItem, IonLabel, IonList,
-  IonModal,
+  IonInput, IonItem,
+  IonLabel, IonList,
   IonTitle,
   IonToolbar
 } from "@ionic/vue";
-import {close} from 'ionicons/icons';
 
 export default {
   components: {
     IonList,
     IonItem,
+    IonIcon,
+    IonToolbar,
+    IonHeader,
+    IonContent,
+    IonButtons,
+    IonButton,
     IonLabel,
     IonInput,
-    IonButton,
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonModal,
-    IonTitle,
-    IonToolbar
+    IonTitle
   },
-  emits: ['close'],
-  props: ['isModalOpen'],
   data() {
     return {
-      close,
       name: '',
       error: null,
     };
   },
   methods: {
-    closeModal() {
-      this.$emit('close');
-    },
     async submitForm() {
       try {
         await this.$store.dispatch('addCategory', {
           name: this.name,
         })
         this.name = '';
-        this.$emit('close');
+        this.$router.push('/categories');
       } catch (err) {
         this.error = err.message || 'Error';
       }
@@ -83,3 +63,9 @@ export default {
 }
 </script>
 
+<style scoped>
+ion-item {
+  --background: rgba(255,255,255, 0.1);
+  --border-style: 1px solid black;
+}
+</style>
