@@ -80,7 +80,15 @@ export default {
     }
   },
   created() {
-    this.getAllServices();
+    this.getAllServices()
+  },
+  async beforeRouteEnter(_, __, next) {
+    try {
+      await this.getAllServices();
+      next();
+    } catch (err) {
+      next();
+    }
   }
 }
 </script>
