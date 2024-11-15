@@ -41,5 +41,24 @@ export default {
         context.commit('addAddition', {
             addition: responseData.data
         });
+    },
+    async deleteAddition(context, payload) {
+        const id = payload.id;
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/additions/' + id, {
+            method: 'DELETE',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error('Failed to delete!')
+        }
+
+        context.commit('deleteAddition', {
+            id
+        });
     }
 }

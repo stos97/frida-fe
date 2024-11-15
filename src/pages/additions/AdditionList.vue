@@ -15,6 +15,7 @@
         <additions-item
             :type="type"
             :additions="listOfAdditions"
+            @delete-addition="deleteAddition"
         ></additions-item>
       </base-card>
     </div>
@@ -67,6 +68,18 @@ export default {
         this.isLoading = false;
       } catch (err) {
         this.error = err.message || 'Fail to fetch additions!';
+      }
+      this.isLoading = false;
+    },
+    async deleteAddition(id) {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch('deleteAddition', {
+          id
+        });
+        this.isLoading = false;
+      } catch (err) {
+        this.error = err.message || 'Fail to delete service!';
       }
       this.isLoading = false;
     }

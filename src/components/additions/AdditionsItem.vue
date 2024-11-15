@@ -18,6 +18,7 @@ import {trash} from 'ionicons/icons';
 
 export default {
   props: ['additions', 'type'],
+  emits: ['delete-addition'],
   components: {
     IonItem, IonLabel, IonButtons, IonButton, IonIcon},
   data() {
@@ -27,7 +28,7 @@ export default {
   },
   methods: {
     handleDelete(addition) {
-      console.log(addition.id);
+      this.$emit('delete-addition', addition.id)
     }
   },
 }
