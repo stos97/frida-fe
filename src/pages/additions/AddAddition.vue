@@ -10,7 +10,7 @@
           </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label>Naziv</ion-label>
+            <ion-label position="stacked">Naziv</ion-label>
             <ion-input type="text" v-model.trim="name" required/>
         </ion-item>
 
