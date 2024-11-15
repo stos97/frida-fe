@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button @click="toggleModal">
+        <ion-fab-button router-link="/additions/add">
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -49,7 +49,6 @@ export default {
       isLoading: false,
       error: null,
       add,
-      isModalOpen: false,
     }
   },
   computed: {
@@ -61,9 +60,6 @@ export default {
     this.getAllAdditions();
   },
   methods: {
-    toggleModal() {
-      this.isModalOpen = !this.isModalOpen;
-    },
     async getAllAdditions() {
       this.isLoading = true;
       try {

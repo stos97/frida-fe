@@ -69,6 +69,13 @@ const routes = [
         },
     },
     {
+        path: '/additions/add',
+        component: () => import("@/pages/additions/AddAddition.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
         path: '/:notFound(.*)', component: () => import("@/NotFound.vue")
     },
 ]
