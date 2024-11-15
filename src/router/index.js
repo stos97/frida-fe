@@ -48,8 +48,29 @@ const routes = [
         },
     },
     {
+        path: '/categories/add',
+        component: () => import("@/pages/categories/AddCategory.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
         path: '/services',
         component: () => import("@/pages/services/ServicesList.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
+        path: '/additions',
+        component: () => import("@/pages/additions/AdditionList.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
+        path: '/additions/add',
+        component: () => import("@/pages/additions/AddAddition.vue"),
         meta: {
             authRequired: true,
         },

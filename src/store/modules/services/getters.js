@@ -2,11 +2,11 @@ export default {
     services(state) {
         return state.services;
     },
-    filteredServices(state) {
+    transformedServices(state) {
         const transformedData = {};
 
         state.services.forEach(service => {
-            const categoryName = service.category.name;
+            const categoryName = service.category?.name;
 
             if (!transformedData[categoryName]) {
                 transformedData[categoryName] = [];

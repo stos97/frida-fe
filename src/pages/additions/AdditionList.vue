@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button @click="toggleModal">
+        <ion-fab-button router-link="/additions/add">
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -10,66 +10,71 @@
     <base-spinner v-if="isLoading"></base-spinner>
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
-      <ion-title class="ion-padding ion-text-center">Usluge</ion-title>
-      <base-card v-for="(listOfServices, categoryName) in services" :key="categoryName" :title="categoryName">
-        <service-item
-            :category-name="categoryName"
-            :services="listOfServices"
-            @delete-service="deleteService"
-        ></service-item>
+      <ion-title class="ion-padding ion-text-center">Dodaci</ion-title>
+      <base-card v-for="(listOfAdditions, type) in additions" :key="type" :title="type">
+        <additions-item
+            :type="type"
+            :additions="listOfAdditions"
+            @delete-addition="deleteAddition"
+        ></additions-item>
       </base-card>
     </div>
   </base-layout>
 </template>
+
 <script>
 import {
+  IonButton,
+  IonButtons,
+  IonCard, IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonFab,
   IonFabButton,
   IonIcon,
-  IonTitle,
+  IonTitle
 } from "@ionic/vue";
 import {add} from 'ionicons/icons';
+import AdditionsItem from "@/components/additions/AdditionsItem.vue";
 import ServiceItem from "@/components/services/ServiceItem.vue";
 
 export default {
   components: {
     ServiceItem,
-    IonTitle,
-    IonFab,
-    IonFabButton,
-    IonIcon,
+    AdditionsItem,
+    IonCardContent, IonButton, IonButtons, IonCard,
+    IonCardTitle, IonCardHeader, IonTitle, IonFab, IonFabButton, IonIcon
   },
   data() {
     return {
-      add,
-      isModalOpen: false,
       isLoading: false,
       error: null,
+      add,
     }
   },
   computed: {
-    services() {
-      return this.$store.getters.transformedServices;
+    additions() {
+      return this.$store.getters.transformedAdditions;
     }
   },
+  created() {
+    this.getAllAdditions();
+  },
   methods: {
-    toggleModal() {
-      this.isModalOpen = !this.isModalOpen;
-    },
-    async getAllServices() {
+    async getAllAdditions() {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('getAllServices')
+        await this.$store.dispatch('getAllAdditions');
         this.isLoading = false;
       } catch (err) {
-        this.error = err.message || 'Fail to load services!';
+        this.error = err.message || 'Fail to fetch additions!';
       }
       this.isLoading = false;
     },
-    async deleteService(id) {
+    async deleteAddition(id) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('deleteService', {
+        await this.$store.dispatch('deleteAddition', {
           id
         });
         this.isLoading = false;
@@ -77,17 +82,6 @@ export default {
         this.error = err.message || 'Fail to delete service!';
       }
       this.isLoading = false;
-    }
-  },
-  created() {
-    this.getAllServices()
-  },
-  async beforeRouteEnter(_, __, next) {
-    try {
-      await this.getAllServices();
-      next();
-    } catch (err) {
-      next();
     }
   }
 }

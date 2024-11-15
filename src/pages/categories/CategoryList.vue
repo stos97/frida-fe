@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button @click="toggleModal">
+        <ion-fab-button router-link="/categories/add">
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -10,12 +10,12 @@
     <base-spinner v-if="isLoading"></base-spinner>
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
-      <ion-title class="ion-padding">Kategorije</ion-title>
+      <ion-title class="ion-padding ion-text-center">Kategorije</ion-title>
+      <base-card>
       <category-item v-for="category in categories" :key="category.id" :category="category"
                      @delete-category="deleteCategory"></category-item>
+      </base-card>
     </div>
-
-    <CreateCategoryModal @close="toggleModal" :is-modal-open="isModalOpen"></CreateCategoryModal>
   </base-layout>
 </template>
 
@@ -24,16 +24,14 @@
 import { IonTitle, IonIcon, IonFab, IonFabButton} from "@ionic/vue";
 import CategoryItem from "@/components/categories/CategoryItem.vue";
 import {add} from 'ionicons/icons';
-import CreateCategoryModal from "@/components/modals/CreateCategoryModal.vue";
 
 export default {
-  components: {CreateCategoryModal, CategoryItem, IonIcon, IonTitle, IonFab, IonFabButton},
+  components: {CategoryItem, IonIcon, IonTitle, IonFab, IonFabButton},
   data() {
     return {
       isLoading: false,
       error: null,
       add,
-      isModalOpen: false,
     }
   },
   computed: {
@@ -45,9 +43,6 @@ export default {
     this.getAllCategories()
   },
   methods: {
-    mounted() {
-      this.presentingElement = this.$refs.page.$el;
-    },
     async getAllCategories() {
       this.isLoading = true;
       try {
@@ -69,9 +64,6 @@ export default {
         this.error = err.message || 'Fail to delete category!';
       }
       this.isLoading = false;
-    },
-    toggleModal() {
-      this.isModalOpen = !this.isModalOpen;
     },
   }
 }
