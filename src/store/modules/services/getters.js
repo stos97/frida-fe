@@ -6,7 +6,7 @@ export default {
         const transformedData = {};
 
         state.services.forEach(service => {
-            const categoryName = service.category.name;
+            const categoryName = service.category?.name;
 
             if (!transformedData[categoryName]) {
                 transformedData[categoryName] = [];
