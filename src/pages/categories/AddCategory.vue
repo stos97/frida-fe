@@ -52,7 +52,7 @@ export default {
           name: this.name,
         })
         this.name = '';
-        this.$router.push('/categories');
+        this.$router.replace('/categories');
       } catch (err) {
         this.error = err.message || 'Error';
       }
