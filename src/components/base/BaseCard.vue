@@ -46,7 +46,7 @@ ion-card-header {
 
 ion-card {
   border: 1px solid #AA6D1C;
-  padding-top: 1px;
+  padding: 1px;
   border-radius: 30px;
   background: rgba(255,255,255, 0.5);
 }
