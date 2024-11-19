@@ -1,6 +1,6 @@
 <template>
     <ion-item>
-      <ion-label>{{ name }}</ion-label>
+      <ion-label>{{ addition.name }}</ion-label>
       <ion-buttons>
         <ion-button
             slot="end"
@@ -17,7 +17,7 @@ import {IonItem, IonLabel, IonButtons, IonButton, IonIcon} from "@ionic/vue";
 import {trash} from 'ionicons/icons';
 
 export default {
-  props: ['id', 'name'],
+  props: ['addition'],
   emits: ['delete-addition'],
   components: {
     IonItem, IonLabel, IonButtons, IonButton, IonIcon},
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     handleDelete() {
-      this.$emit('delete-addition', this.id)
+      this.$emit('delete-addition', this.addition.id)
     }
   },
 }

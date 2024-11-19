@@ -8,8 +8,7 @@
         @delete-service="deleteService"
         v-for="service in listOfServices"
         :key="service.id"
-        :name="service.name"
-        :id="service.id"
+        :service="service"
     ></service-item>
   </base-card>
 </template>

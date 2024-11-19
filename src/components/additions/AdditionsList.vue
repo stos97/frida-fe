@@ -3,8 +3,7 @@
     <addition-item
         v-for="addition in listOfAdditions"
         :key="addition.id"
-        :name="addition.name"
-        :id="addition.id"
+        :addition="addition"
         @delete-addition="deleteAddition"
     ></addition-item>
   </base-card>

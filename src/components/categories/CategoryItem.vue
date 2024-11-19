@@ -7,7 +7,7 @@
       <ion-button
           slot="end"
           color="danger"
-          @click="handleDelete(category)"
+          @click="handleDelete"
       >
         <ion-icon :icon="trash"></ion-icon>
       </ion-button>
@@ -28,8 +28,8 @@ export default {
     }
   },
   methods: {
-    handleDelete(category) {
-      this.$emit('delete-category', category.id);
+    handleDelete() {
+      this.$emit('delete-category', this.category.id);
     }
   }
 }

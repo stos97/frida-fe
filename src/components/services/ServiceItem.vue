@@ -1,6 +1,6 @@
 <template>
     <ion-item>
-      <ion-label>{{ name }}</ion-label>
+      <ion-label>{{ service.name }}</ion-label>
       <ion-buttons>
         <ion-button
             slot="end"
@@ -28,7 +28,7 @@ import {
 import {trash} from 'ionicons/icons';
 
 export default {
-  props: ['id', 'name'],
+  props: ['service'],
   emits: ['delete-service'],
   components: {
     IonIcon, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonList
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     handleDelete() {
-      this.$emit('delete-service', this.id);
+      this.$emit('delete-service', this.service.id);
     }
   }
 }
