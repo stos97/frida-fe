@@ -11,13 +11,7 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Dodaci</ion-title>
-      <base-card v-for="(listOfAdditions, type) in additions" :key="type" :title="type">
-        <additions-item
-            :type="type"
-            :additions="listOfAdditions"
-            @delete-addition="deleteAddition"
-        ></additions-item>
-      </base-card>
+      <additions-list :additions="additions"></additions-list>
     </div>
   </base-layout>
 </template>
@@ -35,13 +29,11 @@ import {
   IonTitle
 } from "@ionic/vue";
 import {add} from 'ionicons/icons';
-import AdditionsItem from "@/components/additions/AdditionsItem.vue";
-import ServiceItem from "@/components/services/ServiceItem.vue";
+import AdditionsList from "@/components/additions/AdditionsList.vue";
 
 export default {
   components: {
-    ServiceItem,
-    AdditionsItem,
+    AdditionsList,
     IonCardContent, IonButton, IonButtons, IonCard,
     IonCardTitle, IonCardHeader, IonTitle, IonFab, IonFabButton, IonIcon
   },
@@ -71,18 +63,6 @@ export default {
       }
       this.isLoading = false;
     },
-    async deleteAddition(id) {
-      this.isLoading = true;
-      try {
-        await this.$store.dispatch('deleteAddition', {
-          id
-        });
-        this.isLoading = false;
-      } catch (err) {
-        this.error = err.message || 'Fail to delete service!';
-      }
-      this.isLoading = false;
-    }
   }
 }
 </script>
