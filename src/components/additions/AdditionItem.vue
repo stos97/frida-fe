@@ -1,16 +1,18 @@
 <template>
-    <ion-item>
+  <ion-item>
+    <slot name="title">
       <ion-label>{{ addition.name }}</ion-label>
-      <ion-buttons>
-        <ion-button
-            slot="end"
-            color="danger"
-            @click="handleDelete"
-        >
-          <ion-icon :icon="trash"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
+    </slot>
+    <ion-buttons>
+      <ion-button
+          slot="end"
+          color="danger"
+          @click="handleDelete"
+      >
+        <ion-icon :icon="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
 </template>
 <script>
 import {IonItem, IonLabel, IonButtons, IonButton, IonIcon} from "@ionic/vue";
@@ -20,7 +22,8 @@ export default {
   props: ['addition'],
   emits: ['delete-addition'],
   components: {
-    IonItem, IonLabel, IonButtons, IonButton, IonIcon},
+    IonItem, IonLabel, IonButtons, IonButton, IonIcon
+  },
   data() {
     return {
       trash
@@ -37,7 +40,7 @@ export default {
 <style scoped>
 
 ion-item {
-  --background: rgba(255,255,255, 0.1);
+  --background: rgba(255, 255, 255, 0.1);
   --border-style: none;
 }
 
