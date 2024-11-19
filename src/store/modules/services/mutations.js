@@ -7,5 +7,8 @@ export default {
     },
     updateService(state, payload) {
         state.services.find(service => service.id === payload.id).additions = payload.additions;
+    },
+    attachAdditionToService(state, payload) {
+        state.services.find(service => service.id === payload.id).additions.push(payload.addition);
     }
 }

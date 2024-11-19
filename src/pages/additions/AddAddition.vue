@@ -4,7 +4,7 @@
       <form class="ion-padding" @submit.prevent="submitForm">
         <ion-item>
           <ion-label>Tip</ion-label>
-          <ion-select aria-label="Favorite Fruit" v-model="type">
+          <ion-select v-model="type">
             <ion-select-option value="size">Velicina</ion-select-option>
             <ion-select-option value="addition">Dodatak</ion-select-option>
           </ion-select>
