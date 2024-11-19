@@ -1,11 +1,11 @@
 <template>
-    <ion-item v-for="service in services" :key="service.id">
-      <ion-label>{{ service.name }}</ion-label>
+    <ion-item>
+      <ion-label>{{ name }}</ion-label>
       <ion-buttons>
         <ion-button
             slot="end"
             color="danger"
-            @click="handleDelete(service)"
+            @click="handleDelete"
         >
           <ion-icon :icon="trash"></ion-icon>
         </ion-button>
@@ -28,7 +28,7 @@ import {
 import {trash} from 'ionicons/icons';
 
 export default {
-  props: ['categoryName', 'services'],
+  props: ['id', 'name'],
   emits: ['delete-service'],
   components: {
     IonIcon, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonList
@@ -39,8 +39,8 @@ export default {
     }
   },
   methods: {
-    handleDelete(service) {
-      this.$emit('delete-service', service.id);
+    handleDelete() {
+      this.$emit('delete-service', this.id);
     }
   }
 }

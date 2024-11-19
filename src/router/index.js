@@ -56,7 +56,7 @@ const routes = [
     },
     {
         path: '/services',
-        component: () => import("@/pages/services/ServicesList.vue"),
+        component: () => import("@/pages/services/ServicesPage.vue"),
         meta: {
             authRequired: true,
         },

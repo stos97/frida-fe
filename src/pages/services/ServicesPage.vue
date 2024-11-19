@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button @click="toggleModal">
+        <ion-fab-button>
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -11,13 +11,12 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Usluge</ion-title>
-      <base-card v-for="(listOfServices, categoryName) in services" :key="categoryName" :title="categoryName">
-        <service-item
-            :category-name="categoryName"
-            :services="listOfServices"
-            @delete-service="deleteService"
-        ></service-item>
-      </base-card>
+      <services-list
+          v-for="(listOfServices, categoryName) in services"
+          :key="categoryName"
+          :title="categoryName"
+          :services="listOfServices"
+      ></services-list>
     </div>
   </base-layout>
 </template>
@@ -29,20 +28,19 @@ import {
   IonTitle,
 } from "@ionic/vue";
 import {add} from 'ionicons/icons';
-import ServiceItem from "@/components/services/ServiceItem.vue";
+import ServicesList from "@/components/services/ServicesList.vue";
 
 export default {
   components: {
-    ServiceItem,
     IonTitle,
     IonFab,
     IonFabButton,
     IonIcon,
+    ServicesList,
   },
   data() {
     return {
       add,
-      isModalOpen: false,
       isLoading: false,
       error: null,
     }
@@ -53,9 +51,6 @@ export default {
     }
   },
   methods: {
-    toggleModal() {
-      this.isModalOpen = !this.isModalOpen;
-    },
     async getAllServices() {
       this.isLoading = true;
       try {
@@ -66,18 +61,6 @@ export default {
       }
       this.isLoading = false;
     },
-    async deleteService(id) {
-      this.isLoading = true;
-      try {
-        await this.$store.dispatch('deleteService', {
-          id
-        });
-        this.isLoading = false;
-      } catch (err) {
-        this.error = err.message || 'Fail to delete service!';
-      }
-      this.isLoading = false;
-    }
   },
   created() {
     this.getAllServices()
