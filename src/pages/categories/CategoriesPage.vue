@@ -12,8 +12,7 @@
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Kategorije</ion-title>
       <base-card>
-      <category-item v-for="category in categories" :key="category.id" :category="category"
-                     @delete-category="deleteCategory"></category-item>
+        <categories-list :categories="categories"></categories-list>
       </base-card>
     </div>
   </base-layout>
@@ -24,9 +23,10 @@
 import { IonTitle, IonIcon, IonFab, IonFabButton} from "@ionic/vue";
 import CategoryItem from "@/components/categories/CategoryItem.vue";
 import {add} from 'ionicons/icons';
+import CategoriesList from "@/components/categories/CategoriesList.vue";
 
 export default {
-  components: {CategoryItem, IonIcon, IonTitle, IonFab, IonFabButton},
+  components: {CategoriesList, CategoryItem, IonIcon, IonTitle, IonFab, IonFabButton},
   data() {
     return {
       isLoading: false,
@@ -50,18 +50,6 @@ export default {
         this.isLoading = false;
       } catch (err) {
         this.error = err.message || 'Fail to load categories!';
-      }
-      this.isLoading = false;
-    },
-    async deleteCategory(id) {
-      this.isLoading = true;
-      try {
-        await this.$store.dispatch("deleteCategory", {
-          id
-        });
-        this.isLoading = false;
-      } catch (err) {
-        this.error = err.message || 'Fail to delete category!';
       }
       this.isLoading = false;
     },
