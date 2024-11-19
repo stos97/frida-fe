@@ -10,10 +10,10 @@
         </ion-button>
       </ion-buttons>
     </ion-item>
-  <div
-      class="additions ion-margin"
+  <base-card
       v-if="showDetails"
   >
+    <ion-card-title>Dodaci</ion-card-title>
     <addition-item
         @delete-addition="detachAddition"
         v-for="addition in service.additions"
@@ -21,7 +21,7 @@
         :addition="addition"
     >
     </addition-item>
-  </div>
+  </base-card>
 </template>
 
 <script>
@@ -81,9 +81,9 @@ ion-item {
   --border-style: none;
 }
 
-.additions {
-  background: #BF945B;
-  border-radius: 20px;
+ion-card {
+  background: rgba(255,255,255, 0.1);
+  border-radius: 10px;
 }
 
 </style>
