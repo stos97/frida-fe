@@ -44,7 +44,7 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/vue";
-import {trash, addCircleOutline, add} from 'ionicons/icons';
+import {trash, addCircleOutline} from 'ionicons/icons';
 import AdditionItem from "@/components/additions/AdditionItem.vue";
 import AttachAdditionForm from "@/components/additions/AttachAdditionForm.vue";
 
