@@ -7,14 +7,14 @@ const routes = [
     },
     {
         path: '/register',
-        component: () => import("@/pages/auth/Register.vue"),
+        component: () => import("@/pages/auth/RegisterPage.vue"),
         meta: {
             authRequired: false,
         },
     },
     {
         path: '/login',
-        component: () => import("@/pages/auth/Login.vue"),
+        component: () => import("@/pages/auth/LoginPage.vue"),
         meta: {
             authRequired: false,
         },
