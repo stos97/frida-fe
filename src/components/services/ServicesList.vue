@@ -1,8 +1,13 @@
 <template>
-  <base-card :title="title">
+  <base-card
+      v-for="(listOfServices, categoryName) in services"
+      :key="categoryName"
+      :title="categoryName"
+      :services="listOfServices"
+  >
     <service-item
         @delete-service="deleteService"
-        v-for="service in services"
+        v-for="service in listOfServices"
         :key="service.id"
         :name="service.name"
         :id="service.id"

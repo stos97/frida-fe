@@ -11,12 +11,7 @@
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
       <ion-title class="ion-padding ion-text-center">Usluge</ion-title>
-      <services-list
-          v-for="(listOfServices, categoryName) in services"
-          :key="categoryName"
-          :title="categoryName"
-          :services="listOfServices"
-      ></services-list>
+      <services-list :services="services"></services-list>
     </div>
   </base-layout>
 </template>
