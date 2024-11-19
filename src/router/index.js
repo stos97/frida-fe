@@ -63,7 +63,7 @@ const routes = [
     },
     {
         path: '/additions',
-        component: () => import("@/pages/additions/AdditionList.vue"),
+        component: () => import("@/pages/additions/AdditionsPage.vue"),
         meta: {
             authRequired: true,
         },

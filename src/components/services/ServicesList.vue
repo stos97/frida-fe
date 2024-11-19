@@ -3,7 +3,6 @@
       v-for="(listOfServices, categoryName) in services"
       :key="categoryName"
       :title="categoryName"
-      :services="listOfServices"
   >
     <service-item
         @delete-service="deleteService"
