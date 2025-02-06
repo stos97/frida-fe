@@ -21,7 +21,7 @@
         :addition="addition"
     >
     </addition-item>
-    <attach-addition-form v-if="showForm" @attach-addition="attachAddition"></attach-addition-form>
+    <attach-addition-form v-if="showForm" :service-id="service.id" @attach-addition="attachAddition"></attach-addition-form>
     <div class="add-button">
       <ion-buttons>
         <ion-button
