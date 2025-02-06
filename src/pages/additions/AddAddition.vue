@@ -40,7 +40,7 @@ export default {
           name: this.name
         })
         this.name = '';
-        this.$router.push('/additions');
+        this.$router.replace('/additions');
       } catch (err) {
         this.error = err.message || 'Error';
       }
