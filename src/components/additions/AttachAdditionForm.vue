@@ -2,7 +2,7 @@
   <form @submit.prevent="submitForm">
     <ion-item>
       <ion-label>Dodatak</ion-label>
-      <ion-select slot="end" v-model="additionId">
+      <ion-select slot="end" v-model="additionId" @click="getAllAdditions">
         <ion-select-option
             v-for="addition in additions"
             :key="addition.id"
@@ -19,6 +19,7 @@ import {IonButton, IonItem, IonLabel, IonSelect, IonSelectOption} from "@ionic/v
 
 export default {
   emits: ['attach-addition'],
+  props: ['serviceId'],
   components: {IonButton, IonItem, IonLabel, IonSelect, IonSelectOption},
   computed: {
     additions() {
@@ -34,7 +35,9 @@ export default {
     async getAllAdditions() {
       // this.isLoading = true;
       try {
-        await this.$store.dispatch('getAllAdditions');
+        await this.$store.dispatch('getAllAdditions', {
+          service_id: this.serviceId
+        });
         // this.isLoading = false;
       } catch (err) {
         this.error = err.message || 'Fail to fetch additions!';

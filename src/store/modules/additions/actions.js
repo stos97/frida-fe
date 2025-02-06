@@ -1,6 +1,11 @@
 export default {
-    async getAllAdditions(context) {
-        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/additions', {
+    async getAllAdditions(context, payload) {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL + '/additions';
+        const params = {
+            service_id: payload?.service_id
+        };
+        const queryString = payload?.service_id ? new URLSearchParams(params).toString() : '';
+        const response = await fetch( `${baseUrl}?${queryString}`, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",

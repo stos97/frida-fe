@@ -63,6 +63,14 @@ export default {
       }
       this.isLoading = false;
     },
+  },
+  async beforeRouteEnter(_, __, next) {
+    try {
+      await this.getAllAdditions();
+      next();
+    } catch (err) {
+      next();
+    }
   }
 }
 </script>
