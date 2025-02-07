@@ -12,25 +12,36 @@
     ></service-item>
   </base-card>
 </template>
+
 <script>
+import { ref} from 'vue';
+import { useStore } from 'vuex';
 import ServiceItem from "@/components/services/ServiceItem.vue";
 
 export default {
-  components: {ServiceItem},
-  props: ['services', 'title'],
-  methods: {
-    async deleteService(id) {
-      this.isLoading = true;
+  components: { ServiceItem },
+  props: ['services'],
+  setup() {
+    const store = useStore();
+    const isLoading = ref(false);
+    const error = ref(null);
+
+    const deleteService = async (id) => {
+      isLoading.value = true;
       try {
-        await this.$store.dispatch('deleteService', {
-          id
-        });
-        this.isLoading = false;
+        await store.dispatch('deleteService', { id });
+        isLoading.value = false;
       } catch (err) {
-        this.error = err.message || 'Fail to delete service!';
+        error.value = err.message || 'Fail to delete service!';
+        isLoading.value = false;
       }
-      this.isLoading = false;
-    }
+    };
+
+    return {
+      deleteService,
+      isLoading,
+      error
+    };
   }
 }
 </script>

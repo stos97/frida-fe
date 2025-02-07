@@ -3,7 +3,7 @@
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
-          <ion-icon :icon="add"></ion-icon>
+          <ion-icon :icon="addIcon"></ion-icon>
         </ion-fab-button>
       </ion-fab>
     </template>
@@ -15,58 +15,60 @@
     </div>
   </base-layout>
 </template>
+
 <script>
-import {
-  IonFab,
-  IonFabButton,
-  IonIcon,
-  IonTitle,
-} from "@ionic/vue";
-import {add} from 'ionicons/icons';
-import ServicesList from "@/components/services/ServicesList.vue";
+import {ref, computed, onMounted, watchEffect} from 'vue';
+import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+import { IonFab, IonFabButton, IonIcon, IonTitle } from '@ionic/vue';
+import { add } from 'ionicons/icons';
+import ServicesList from '@/components/services/ServicesList.vue';
 
 export default {
   components: {
-    IonTitle,
     IonFab,
     IonFabButton,
     IonIcon,
+    IonTitle,
     ServicesList,
   },
-  data() {
-    return {
-      add,
-      isLoading: false,
-      error: null,
-    }
-  },
-  computed: {
-    services() {
-      return this.$store.getters.transformedServices;
-    }
-  },
-  methods: {
-    async getAllServices() {
-      this.isLoading = true;
+  setup() {
+    const store = useStore();
+    const route = useRoute();
+
+    const addIcon = add;
+    const isLoading = ref(false);
+    const error = ref(null);
+
+    const services = computed(() => store.getters.transformedServices);
+
+    const getAllServices = async () => {
+      isLoading.value = true;
       try {
-        await this.$store.dispatch('getAllServices')
-        this.isLoading = false;
+        await store.dispatch('getAllServices');
       } catch (err) {
-        this.error = err.message || 'Fail to load services!';
+        error.value = err.message || 'Fail to load services!';
+      } finally {
+        isLoading.value = false;
       }
-      this.isLoading = false;
-    },
+    };
+
+    onMounted(async () => {
+      await getAllServices();
+    });
+
+    watchEffect(async () => {
+      if (route.path === '/services') {
+        await getAllServices();
+      }
+    });
+
+    return {
+      addIcon,
+      isLoading,
+      error,
+      services,
+    };
   },
-  created() {
-    this.getAllServices()
-  },
-  async beforeRouteEnter(_, __, next) {
-    try {
-      await this.getAllServices();
-      next();
-    } catch (err) {
-      next();
-    }
-  }
-}
+};
 </script>

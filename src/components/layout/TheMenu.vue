@@ -19,8 +19,10 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { menuController } from '@ionic/vue';
+import {IonTitle, IonHeader, IonItem, IonList, IonMenu, IonContent, IonToolbar} from "@ionic/vue";
 
 export default {
+  components: {IonTitle, IonHeader, IonItem, IonList, IonMenu, IonContent, IonToolbar},
   setup() {
     const menuItems = ref([]);
     const router = useRouter();

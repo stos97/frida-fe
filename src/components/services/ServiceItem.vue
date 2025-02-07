@@ -1,18 +1,16 @@
 <template>
-    <ion-item>
-      <ion-label @click="toggleDetails">{{ service.name }}</ion-label>
-      <ion-buttons>
-        <ion-button
-            color="danger"
-            @click="handleDelete"
-        >
-          <ion-icon :icon="trash"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
-  <base-card
-      v-if="showDetails"
-  >
+  <ion-item>
+    <ion-label @click="toggleDetails">{{ service.name }}</ion-label>
+    <ion-buttons>
+      <ion-button
+          color="danger"
+          @click="handleDelete"
+      >
+        <ion-icon :icon="trashIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+  <base-card v-if="showDetails">
     <ion-card-title>Dodaci</ion-card-title>
     <addition-item
         @delete-addition="detachAddition"
@@ -28,7 +26,7 @@
             class="ion-text-center"
             @click="openForm"
         >
-          <ion-icon :icon="addCircleOutline"></ion-icon>
+          <ion-icon :icon="addCircleOutlineIcon"></ion-icon>
         </ion-button>
       </ion-buttons>
     </div>
@@ -36,6 +34,7 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import {
   IonButton,
   IonButtons,
@@ -44,9 +43,10 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/vue";
-import {trash, addCircleOutline} from 'ionicons/icons';
+import { trash, addCircleOutline } from 'ionicons/icons';
 import AdditionItem from "@/components/additions/AdditionItem.vue";
 import AttachAdditionForm from "@/components/additions/AttachAdditionForm.vue";
+import {useStore} from "vuex";
 
 export default {
   props: ['service'],
@@ -56,52 +56,69 @@ export default {
     AdditionItem,
     IonIcon, IonButton, IonButtons, IonCardTitle, IonItem, IonLabel
   },
-  data() {
-    return {
-      trash,
-      addCircleOutline,
-      showDetails: false,
-      showForm: false,
-    }
-  },
-  methods: {
-    handleDelete() {
-      this.$emit('delete-service', this.service.id);
-    },
-    toggleDetails() {
-      this.showDetails = !this.showDetails;
-    },
-    openForm() {
-      this.showForm = true;
-    },
-    async detachAddition(id) {
-      const filteredAdditions = this.service.additions.filter(addition => addition.id !== id);
+  setup(props, { emit }) {
+    const store = useStore();
+
+    const trashIcon = trash;
+    const addCircleOutlineIcon = addCircleOutline;
+
+    const showDetails = ref(false);
+    const showForm = ref(false);
+    const error = ref(null);
+
+    const handleDelete = () => {
+      emit('delete-service', props.service.id);
+    };
+
+    const toggleDetails = () => {
+      showDetails.value = !showDetails.value;
+    };
+
+    const openForm = () => {
+      showForm.value = true;
+    };
+
+    const detachAddition = async (id) => {
+      const filteredAdditions = props.service.additions.filter(addition => addition.id !== id);
       try {
-        await this.$store.dispatch('detachAdditionFromService', {
-          id: this.service.id,
+        await store.dispatch('detachAdditionFromService', {
+          id: props.service.id,
           additions: filteredAdditions,
         });
       } catch (err) {
-        this.error = err.message || 'Fail to detach addition!';
+        error.value = err.message || 'Fail to detach addition!';
       }
-    },
-    async attachAddition(addition) {
+    };
+
+    const attachAddition = async (addition) => {
       try {
-        await this.$store.dispatch('attachAdditionFromService', {
-          id: this.service.id,
+        await store.dispatch('attachAdditionFromService', {
+          id: props.service.id,
           addition: addition,
         });
-        this.showForm = false;
+        showForm.value = false;
       } catch (err) {
-        this.error = err.message || 'Fail to detach addition!';
+        error.value = err.message || 'Fail to attach addition!';
       }
-    }
-  },
+    };
+
+    return {
+      trashIcon: trashIcon,
+      addCircleOutlineIcon: addCircleOutlineIcon,
+      showDetails,
+      showForm,
+      error,
+      handleDelete,
+      toggleDetails,
+      openForm,
+      detachAddition,
+      attachAddition
+    };
+  }
 }
 </script>
 
 <style scoped>
-
 ion-item {
   --background: rgba(255,255,255, 0.1);
   --border-style: none;
@@ -116,5 +133,4 @@ ion-card {
   display: flex;
   justify-content: center; /* Horizontally center */
 }
-
 </style>
