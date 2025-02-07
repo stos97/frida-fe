@@ -55,91 +55,106 @@
 </template>
 
 <script>
-import {IonButton, IonInput, IonItem, IonLabel, IonList, IonPage, IonContent} from "@ionic/vue";
+import { ref, reactive } from 'vue';
+import { IonButton, IonInput, IonItem, IonLabel, IonList, IonPage, IonContent } from '@ionic/vue';
 
 export default {
-  components: {IonInput, IonLabel, IonList, IonItem, IonButton, IonPage, IonContent},
-  data() {
-    return {
-      name: {
-        val: '',
-        isValid: true,
-      },
-      email: {
-        val: '',
-        isValid: true,
-      },
-      password: {
-        val: '',
-        isValid: true,
-      },
-      passwordConfirmation: {
-        val: '',
-        isValid: true,
-      },
-      phone: {
-        val: '',
-        isValid: true,
-      },
-      formIsValid: true,
-      isLoading: false,
-      error: null,
-    }
-  },
-  methods: {
-    async submitForm() {
-      this.validateForm();
-      if (!this.formIsValid) {
+  components: { IonInput, IonLabel, IonList, IonItem, IonButton, IonPage, IonContent },
+
+  setup() {
+    const name = reactive({
+      val: '',
+      isValid: true
+    });
+
+    const email = reactive({
+      val: '',
+      isValid: true
+    });
+
+    const password = reactive({
+      val: '',
+      isValid: true
+    });
+
+    const passwordConfirmation = reactive({
+      val: '',
+      isValid: true
+    });
+
+    const phone = reactive({
+      val: '',
+      isValid: true
+    });
+
+    const formIsValid = ref(true);
+    const isLoading = ref(false);
+    const error = ref(null);
+
+    const validateForm = () => {
+      formIsValid.value = true;
+
+      if (email.val === '' || !email.val.includes('@')) {
+        formIsValid.value = false;
+        email.isValid = false;
+      }
+
+      if (password.val.length < 6) {
+        formIsValid.value = false;
+        password.isValid = false;
+      }
+
+      if (password.val !== passwordConfirmation.val) {
+        formIsValid.value = false;
+        passwordConfirmation.isValid = false;
+      }
+
+      if (name.val === '') {
+        formIsValid.value = false;
+        name.isValid = false;
+      }
+
+      if (phone.val === '') {
+        formIsValid.value = false;
+        phone.isValid = false;
+      }
+    };
+
+    const submitForm = async () => {
+      validateForm();
+      if (!formIsValid.value) {
         return;
       }
 
-
-      this.isLoading = true;
+      isLoading.value = true;
       try {
         await this.$store.dispatch('register', {
-          email: this.email.val,
-          name: this.name.val,
-          password: this.password.val,
-          passwordConfirmation: this.passwordConfirmation.val,
-          phone: this.phone.val,
+          email: email.val,
+          name: name.val,
+          password: password.val,
+          passwordConfirmation: passwordConfirmation.val,
+          phone: phone.val,
         });
 
         this.$router.replace('/user');
-      }
-      catch (err) {
-        this.error = err.message || 'Registration Fail!';
-      }
-
-      this.isLoading = false;
-    },
-    validateForm() {
-      this.formIsValid = true;
-
-      if (this.email.val === '' || !this.email.val.includes('@')) {
-          this.formIsValid = false;
-          this.email.isValid = false;
+      } catch (err) {
+        error.value = err.message || 'Registration Fail!';
       }
 
-      if (this.password.val.length < 6) {
-        this.formIsValid = false;
-        this.password.isValid = false;
-      }
+      isLoading.value = false;
+    };
 
-      if (this.password.val !== this.passwordConfirmation.val) {
-        this.formIsValid = false;
-        this.passwordConfirmation.isValid = false;
-      }
-
-      if (this.name.val === '') {
-        this.formIsValid = false;
-        this.name.isValid = false;
-      }
-
-      if (this.phone.val === '') {
-        this.formIsValid = false;
-        this.phone.isValid = false;
-      }
-    }
+    return {
+      name,
+      email,
+      password,
+      passwordConfirmation,
+      phone,
+      formIsValid,
+      isLoading,
+      error,
+      submitForm
+    };
   }
 }
 </script>

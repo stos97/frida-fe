@@ -29,6 +29,9 @@
 </template>
 
 <script>
+import {ref} from 'vue';
+import {useStore} from 'vuex';
+import {useRouter} from 'vue-router';
 import {IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonButton} from "@ionic/vue";
 
 export default {
@@ -41,43 +44,52 @@ export default {
     IonItem,
     IonButton,
   },
-  data() {
-    return {
-      email: '',
-      password: '',
-      formIsValid: true,
-      isLoading: false,
-      error: null,
-    }
-  },
-  methods: {
-    async submitForm() {
-      this.validateForm();
-      if (!this.formIsValid) {
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const email = ref('');
+    const password = ref('');
+    const formIsValid = ref(true);
+    const isLoading = ref(false);
+    const error = ref(null);
+
+    const validateForm = () => {
+      formIsValid.value = true;
+      if (email.value === '' || !email.value.includes('@') || password.value.length < 6) {
+        formIsValid.value = false;
+      }
+    };
+
+    const submitForm = async () => {
+      validateForm();
+      if (!formIsValid.value) {
         return;
       }
 
-
-      this.isLoading = true;
+      isLoading.value = true;
       try {
-        await this.$store.dispatch('login', {
-          email: this.email,
-          password: this.password
-        })
+        await store.dispatch('login', {
+          email: email.value,
+          password: password.value,
+        });
 
-        this.$router.replace('/' + this.$store.getters.user.role);
+        router.replace('/' + store.getters.user.role);
       } catch (err) {
-        this.error = err.message || 'Invalid Credentials!';
+        error.value = err.message || 'Invalid Credentials!';
       }
 
-      this.isLoading = false;
-    },
-    validateForm() {
-      this.formIsValid = true;
-      if (this.email === '' || !this.email.includes('@') || this.password.length < 6) {
-        this.formIsValid = false;
-      }
-    }
-  }
-}
+      isLoading.value = false;
+    };
+
+    return {
+      email,
+      password,
+      formIsValid,
+      isLoading,
+      error,
+      submitForm,
+    };
+  },
+};
 </script>
