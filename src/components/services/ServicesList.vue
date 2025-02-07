@@ -30,9 +30,9 @@ export default {
       isLoading.value = true;
       try {
         await store.dispatch('deleteService', { id });
-        isLoading.value = false;
       } catch (err) {
         error.value = err.message || 'Fail to delete service!';
+      } finally {
         isLoading.value = false;
       }
     };

@@ -57,11 +57,16 @@
 <script>
 import { ref, reactive } from 'vue';
 import { IonButton, IonInput, IonItem, IonLabel, IonList, IonPage, IonContent } from '@ionic/vue';
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
 
 export default {
   components: { IonInput, IonLabel, IonList, IonItem, IonButton, IonPage, IonContent },
 
   setup() {
+    const store = useStore();
+    const router = useRouter();
+
     const name = reactive({
       val: '',
       isValid: true
@@ -128,7 +133,7 @@ export default {
 
       isLoading.value = true;
       try {
-        await this.$store.dispatch('register', {
+        await store.dispatch('register', {
           email: email.val,
           name: name.val,
           password: password.val,
@@ -136,12 +141,12 @@ export default {
           phone: phone.val,
         });
 
-        this.$router.replace('/user');
+        await router.replace('/user');
       } catch (err) {
         error.value = err.message || 'Registration Fail!';
+      } finally {
+        isLoading.value = false;
       }
-
-      isLoading.value = false;
     };
 
     return {

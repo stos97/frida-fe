@@ -74,7 +74,7 @@ export default {
           password: password.value,
         });
 
-        router.replace('/' + store.getters.user.role);
+        await router.replace('/' + store.getters.user.role);
       } catch (err) {
         error.value = err.message || 'Invalid Credentials!';
       }

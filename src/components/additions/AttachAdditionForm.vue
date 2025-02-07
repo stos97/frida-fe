@@ -23,6 +23,7 @@ import {useStore}  from "vuex";
 export default {
   components: { IonButton, IonItem, IonLabel, IonSelect, IonSelectOption },
   props: ['serviceId'],
+  emits: ['attach-addition'],
   setup(props, { emit }) {
     const store = useStore();
 
