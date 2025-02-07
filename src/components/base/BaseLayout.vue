@@ -31,11 +31,9 @@ export default defineComponent({
   props: {
     pageTitle: {
       type: String,
-      default: ''
     },
     pageDefaultBackLink: {
       type: String,
-      default: ''
     },
     showBackButton: {
       type: Boolean,
