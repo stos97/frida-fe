@@ -43,8 +43,8 @@ export default {
           type: type.value,
           name: name.value
         });
-        name.value = ''; // Reset the name field
-        await router.replace('/additions'); // Navigate to the /additions page
+        name.value = '';
+        await router.replace('/additions');
       } catch (err) {
         error.value = err.message || 'Error';
       }
