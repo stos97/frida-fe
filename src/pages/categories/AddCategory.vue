@@ -12,15 +12,21 @@
     </base-card>
   </base-layout>
 </template>
+
 <script>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import {
   IonButton,
   IonButtons,
   IonContent,
   IonHeader,
   IonIcon,
-  IonInput, IonItem,
-  IonLabel, IonList,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonList,
   IonTitle,
   IonToolbar
 } from "@ionic/vue";
@@ -39,26 +45,32 @@ export default {
     IonInput,
     IonTitle
   },
-  data() {
-    return {
-      name: '',
-      error: null,
-    };
-  },
-  methods: {
-    async submitForm() {
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const name = ref('');
+    const error = ref(null);
+
+    const submitForm = async () => {
       try {
-        await this.$store.dispatch('addCategory', {
-          name: this.name,
-        })
-        this.name = '';
-        this.$router.replace('/categories');
+        await store.dispatch('addCategory', {
+          name: name.value,
+        });
+        name.value = '';
+        await router.replace('/categories');
       } catch (err) {
-        this.error = err.message || 'Error';
+        error.value = err.message || 'Error';
       }
-    }
+    };
+
+    return {
+      name,
+      error,
+      submitForm
+    };
   }
-}
+};
 </script>
 
 <style scoped>

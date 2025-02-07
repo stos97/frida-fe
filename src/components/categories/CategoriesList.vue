@@ -6,24 +6,36 @@
       @delete-category="deleteCategory"
   ></category-item>
 </template>
+
 <script>
+import { ref } from 'vue';
 import CategoryItem from "@/components/categories/CategoryItem.vue";
+import { useStore } from 'vuex';
+
 export default {
+  components: { CategoryItem },
   props: ['categories'],
-  components: {CategoryItem},
-  methods: {
-    async deleteCategory(id) {
-      this.isLoading = true;
+  setup() {
+    const store = useStore();
+    const isLoading = ref(false);
+    const error = ref(null);
+
+    const deleteCategory = async (id) => {
+      isLoading.value = true;
       try {
-        await this.$store.dispatch("deleteCategory", {
-          id
-        });
-        this.isLoading = false;
+        await store.dispatch('deleteCategory', { id });
       } catch (err) {
-        this.error = err.message || 'Fail to delete category!';
+        error.value = err.message || 'Fail to delete category!';
+      } finally {
+        isLoading.value = false;
       }
-      this.isLoading = false;
-    },
-  }
-}
+    };
+
+    return {
+      isLoading,
+      error,
+      deleteCategory
+    };
+  },
+};
 </script>
