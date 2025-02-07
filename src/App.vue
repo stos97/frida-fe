@@ -6,23 +6,32 @@
 </template>
 
 <script>
-import {IonApp, IonRouterOutlet} from '@ionic/vue';
+import { IonApp, IonRouterOutlet } from '@ionic/vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import { onMounted, computed } from 'vue';
 
 export default {
   components: {
     IonApp,
-    IonRouterOutlet
+    IonRouterOutlet,
   },
-  computed: {
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    }
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const isAuthenticated = computed(() => store.getters.isAuthenticated);
+
+    onMounted(async () => {
+      await store.dispatch('tryLogin');
+      if (isAuthenticated.value) {
+        await router.replace('/' + store.getters.user.role);
+      }
+    });
+
+    return {
+      isAuthenticated,
+    };
   },
-  async mounted() {
-    await this.$store.dispatch('tryLogin')
-    if (this.isAuthenticated) {
-      this.$router.replace('/' + this.$store.getters.user.role)
-    }
-  }
-}
+};
 </script>
