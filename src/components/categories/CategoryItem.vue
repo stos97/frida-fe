@@ -9,37 +9,39 @@
           color="danger"
           @click="handleDelete"
       >
-        <ion-icon :icon="trash"></ion-icon>
+        <ion-icon :icon="trashIcon"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-item>
 </template>
+
 <script>
-import {IonButton, IonIcon, IonItem, IonLabel, IonButtons} from "@ionic/vue";
-import {trash} from "ionicons/icons";
+import { ref } from 'vue';
+import { IonButton, IonIcon, IonItem, IonLabel, IonButtons } from "@ionic/vue";
+import { trash } from "ionicons/icons";
 
 export default {
-  components: {IonIcon, IonButton, IonItem, IonLabel, IonButtons},
+  components: { IonIcon, IonButton, IonItem, IonLabel, IonButtons },
   props: ['category'],
   emits: ['delete-category'],
-  data() {
+  setup(props, { emit }) {
+    const trashIcon = ref(trash);
+
+    const handleDelete = () => {
+      emit('delete-category', props.category.id);
+    };
+
     return {
-      trash
-    }
-  },
-  methods: {
-    handleDelete() {
-      this.$emit('delete-category', this.category.id);
-    }
+      trashIcon,
+      handleDelete
+    };
   }
-}
+};
 </script>
 
 <style scoped>
-
 ion-item {
-  --background: rgba(255,255,255, 0.1);
+  --background: rgba(255, 255, 255, 0.1);
   --border-style: none;
 }
-
 </style>

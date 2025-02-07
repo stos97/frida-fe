@@ -8,25 +8,38 @@
     ></addition-item>
   </base-card>
 </template>
+
 <script>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
 import AdditionItem from "@/components/additions/AdditionItem.vue";
 
 export default {
+  components: {
+    AdditionItem
+  },
   props: ['additions'],
-  components: {AdditionItem},
-  methods: {
-    async deleteAddition(id) {
-      this.isLoading = true;
+  setup() {
+    const store = useStore();
+    const isLoading = ref(false);
+    const error = ref(null);
+
+    const deleteAddition = async (id) => {
+      isLoading.value = true;
       try {
-        await this.$store.dispatch('deleteAddition', {
-          id
-        });
-        this.isLoading = false;
+        await store.dispatch('deleteAddition', { id });
+        isLoading.value = false;
       } catch (err) {
-        this.error = err.message || 'Fail to delete addition!';
+        error.value = err.message || 'Fail to delete addition!';
+        isLoading.value = false;
       }
-      this.isLoading = false;
-    }
+    };
+
+    return {
+      isLoading,
+      error,
+      deleteAddition
+    };
   }
-}
+};
 </script>

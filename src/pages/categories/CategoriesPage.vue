@@ -3,7 +3,7 @@
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button router-link="/categories/add">
-          <ion-icon :icon="add"></ion-icon>
+          <ion-icon :icon="addIcon"></ion-icon>
         </ion-fab-button>
       </ion-fab>
     </template>
@@ -19,40 +19,51 @@
 </template>
 
 <script>
-
-import { IonTitle, IonIcon, IonFab, IonFabButton} from "@ionic/vue";
+import { ref, computed, onMounted } from 'vue';
+import { IonTitle, IonIcon, IonFab, IonFabButton } from "@ionic/vue";
 import CategoryItem from "@/components/categories/CategoryItem.vue";
-import {add} from 'ionicons/icons';
 import CategoriesList from "@/components/categories/CategoriesList.vue";
+import { add } from 'ionicons/icons';
+import { useStore } from 'vuex';
 
 export default {
-  components: {CategoriesList, CategoryItem, IonIcon, IonTitle, IonFab, IonFabButton},
-  data() {
-    return {
-      isLoading: false,
-      error: null,
-      add,
-    }
+  components: {
+    CategoriesList,
+    CategoryItem,
+    IonIcon,
+    IonTitle,
+    IonFab,
+    IonFabButton,
   },
-  computed: {
-    categories() {
-      return this.$store.getters.categories;
-    }
-  },
-  created() {
-    this.getAllCategories()
-  },
-  methods: {
-    async getAllCategories() {
-      this.isLoading = true;
+  setup() {
+    const store = useStore();
+    const isLoading = ref(false);
+    const error = ref(null);
+    const addIcon = ref(add);
+
+    const categories = computed(() => store.getters.categories);
+
+    const getAllCategories = async () => {
+      isLoading.value = true;
       try {
-        await this.$store.dispatch("getAllCategories")
-        this.isLoading = false;
+        await store.dispatch("getAllCategories");
       } catch (err) {
-        this.error = err.message || 'Fail to load categories!';
+        error.value = err.message || 'Fail to load categories!';
+      } finally {
+        isLoading.value = false;
       }
-      this.isLoading = false;
-    },
+    };
+
+    onMounted(async () => {
+      await getAllCategories();
+    });
+
+    return {
+      isLoading,
+      error,
+      categories,
+      addIcon,
+    };
   }
 }
 </script>

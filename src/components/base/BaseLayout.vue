@@ -23,18 +23,18 @@
 </template>
 
 <script>
-import {IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonMenuButton} from '@ionic/vue'
-import {chevronBack} from "ionicons/icons";
+import { ref, defineComponent } from 'vue';
+import { IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonMenuButton } from '@ionic/vue';
+import { chevronBack } from "ionicons/icons";
 
-export default {
-  data() {
-    return {
-      chevronBack,
-    }
-  },
+export default defineComponent({
   props: {
-    pageTitle: String,
-    pageDefaultBackLink: String,
+    pageTitle: {
+      type: String,
+    },
+    pageDefaultBackLink: {
+      type: String,
+    },
     showBackButton: {
       type: Boolean,
       default: true
@@ -49,6 +49,13 @@ export default {
     IonBackButton,
     IonButtons,
     IonMenuButton,
+  },
+  setup() {
+    const chevronBackIcon = ref(chevronBack);
+
+    return {
+      chevronBack: chevronBackIcon,
+    };
   }
-}
+});
 </script>
