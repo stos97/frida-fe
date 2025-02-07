@@ -10,8 +10,8 @@
           </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label position="stacked">Naziv</ion-label>
-            <ion-input type="text" v-model.trim="name" required/>
+          <ion-label position="stacked">Naziv</ion-label>
+          <ion-input type="text" v-model.trim="name" required/>
         </ion-item>
 
         <ion-button class="ion-margin-top" type="submit" expand="block">Dodaj</ion-button>
@@ -19,38 +19,49 @@
     </base-card>
   </base-layout>
 </template>
+
 <script>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import BaseCard from "@/components/base/BaseCard.vue";
-import {IonButton, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption} from "@ionic/vue";
+import { IonButton, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/vue";
 
 export default {
-  components: {IonItem, IonButton, IonLabel, IonInput, BaseCard, IonSelect, IonSelectOption},
-  data() {
-    return {
-      name: '',
-      type: 'size',
-      error: null,
-    }
-  },
-  methods: {
-    async submitForm() {
+  components: { IonItem, IonButton, IonLabel, IonInput, BaseCard, IonSelect, IonSelectOption },
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const name = ref('');
+    const type = ref('size');
+    const error = ref(null);
+
+    const submitForm = async () => {
       try {
-        await this.$store.dispatch('addAddition', {
-          type: this.type,
-          name: this.name
-        })
-        this.name = '';
-        this.$router.replace('/additions');
+        await store.dispatch('addAddition', {
+          type: type.value,
+          name: name.value
+        });
+        name.value = ''; // Reset the name field
+        await router.replace('/additions'); // Navigate to the /additions page
       } catch (err) {
-        this.error = err.message || 'Error';
+        error.value = err.message || 'Error';
       }
-    }
+    };
+
+    return {
+      name,
+      type,
+      error,
+      submitForm
+    };
   }
-}
+};
 </script>
 
 <style scoped>
 ion-item {
-  --background: rgba(255,255,255, 0.1);
+  --background: rgba(255, 255, 255, 0.1);
 }
 </style>

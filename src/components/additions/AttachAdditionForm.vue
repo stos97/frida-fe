@@ -7,58 +7,59 @@
             v-for="addition in additions"
             :key="addition.id"
             :value="addition.id"
-        >{{addition.name}}</ion-select-option>
+        >{{ addition.name }}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-button class="ion-margin-top" type="submit" expand="block">Dodaj</ion-button>
   </form>
 </template>
+
 <script>
-import {IonButton, IonItem, IonLabel, IonSelect, IonSelectOption} from "@ionic/vue";
+import { ref, computed, onMounted } from 'vue';
+import { IonButton, IonItem, IonLabel, IonSelect, IonSelectOption } from '@ionic/vue';
+import {useStore}  from "vuex";
 
 export default {
-  emits: ['attach-addition'],
+  components: { IonButton, IonItem, IonLabel, IonSelect, IonSelectOption },
   props: ['serviceId'],
-  components: {IonButton, IonItem, IonLabel, IonSelect, IonSelectOption},
-  computed: {
-    additions() {
-      return this.$store.getters.additions;
-    }
-  },
-  data() {
+  setup(props, { emit }) {
+    const store = useStore();
+
+    const additionId = ref(null);
+    const additions = computed(() => store.getters.additions);
+
+    const getAllAdditions = async () => {
+      try {
+        await store.dispatch('getAllAdditions', {
+          service_id: props.serviceId
+        });
+      } catch (err) {
+        console.error('Failed to fetch additions:', err.message || 'Error');
+      }
+    };
+
+    const submitForm = () => {
+      const addition = additions.value.find(addition => addition.id === additionId.value);
+      emit('attach-addition', addition);
+      additionId.value = null;
+    };
+
+    onMounted(async () => {
+      await getAllAdditions();
+    });
+
     return {
-      additionId: null,
+      additionId,
+      additions,
+      getAllAdditions,
+      submitForm
     };
   },
-  methods: {
-    async getAllAdditions() {
-      // this.isLoading = true;
-      try {
-        await this.$store.dispatch('getAllAdditions', {
-          service_id: this.serviceId
-        });
-        // this.isLoading = false;
-      } catch (err) {
-        this.error = err.message || 'Fail to fetch additions!';
-      }
-      // this.isLoading = false;
-    },
-    submitForm() {
-      const addition = this.additions.find(addition => addition.id === this.additionId);
-
-      this.$emit('attach-addition', addition);
-      this.additionId = null;
-    },
-  },
-  mounted() {
-    this.getAllAdditions();
-  }
-}
+};
 </script>
 
 <style scoped>
-
 ion-item {
   --background: rgba(255,255,255, 0.1);
   --border-style: none;
