@@ -32,9 +32,8 @@ export default {
 
     onMounted(() => {
       if (isPlatform('capacitor') || isPlatform('cordova')) {
-        updateNetworkStatus();  // Initial check for network status
+        updateNetworkStatus();
 
-        // Subscribe to network status change events
         Network.onDisconnect().subscribe(() => {
           isOffline.value = true;
         });
@@ -45,10 +44,8 @@ export default {
       }
     });
 
-    // Clean up when component is unmounted
     // onUnmounted(() => {
     //   if (isPlatform('capacitor') || isPlatform('cordova')) {
-    //     // Unsubscribe from network listeners if needed
     //     Network.onDisconnect().unsubscribe();
     //     Network.onConnect().unsubscribe();
     //   }
