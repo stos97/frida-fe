@@ -1,6 +1,7 @@
 <template>
   <div class="spinner-overlay">
     <ion-spinner name="crescent"></ion-spinner>
+    <slot></slot>
   </div>
 </template>
 
