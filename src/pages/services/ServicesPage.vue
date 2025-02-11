@@ -2,7 +2,7 @@
   <base-layout>
     <template v-slot:fab-button>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button>
+        <ion-fab-button router-link="/services/add">
           <ion-icon :icon="addIcon"></ion-icon>
         </ion-fab-button>
       </ion-fab>
