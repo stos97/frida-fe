@@ -10,5 +10,8 @@ export default {
     },
     attachAdditionToService(state, payload) {
         state.services.find(service => service.id === payload.id).additions.push(payload.addition);
+    },
+    addService(state, payload) {
+        state.services.push(payload.service);
     }
 }
