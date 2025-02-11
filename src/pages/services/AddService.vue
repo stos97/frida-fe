@@ -47,7 +47,6 @@ export default {
     })
 
     const submitForm = async () => {
-
       if (name.value === '' || category.value == null) {
         formIsValid.value = false;
 
