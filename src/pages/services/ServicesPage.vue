@@ -10,7 +10,7 @@
     <base-spinner v-if="isLoading"></base-spinner>
     <p v-if="!!error">{{ error }}</p>
     <div v-else>
-      <ion-title class="ion-padding ion-text-center">Usluge</ion-title>
+      <ion-title class="ion-padding ion-text-center">{{ $t('services.titleLabel') }}</ion-title>
       <services-list :services="services"></services-list>
     </div>
   </base-layout>

@@ -1,13 +1,13 @@
 <template>
   <base-layout>
-    <base-card title="Dodaj kategoriju">
+    <base-card :title="$t('addCategory.titleLabel')">
       <form class="ion-padding" @submit.prevent="submitForm">
           <ion-item>
-              <ion-label position="stacked">Naziv</ion-label>
+              <ion-label position="stacked">{{ $t('addCategory.form.nameLabel') }}</ion-label>
               <ion-input type="text" v-model.trim="name" required/>
           </ion-item>
 
-          <ion-button type="submit" expand="block">Dodaj</ion-button>
+          <ion-button type="submit" expand="block">{{ $t('addCategory.form.submitButton') }}</ion-button>
       </form>
     </base-card>
   </base-layout>

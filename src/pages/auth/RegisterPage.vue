@@ -7,47 +7,47 @@
         <ion-list>
           <ion-item>
             <ion-label>
-              <ion-label>Email</ion-label>
+              <ion-label>{{ $t('register.form.emailLabel')}}</ion-label>
               <ion-input type="email" v-model.trim="email.val" required/>
-              <p v-if="!email.isValid">Email nije dobar</p>
+              <p v-if="!email.isValid">{{ $t('register.form.emailErrorMessage') }}</p>
             </ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label>
-              <ion-label>Ime</ion-label>
+              <ion-label>{{ $t('register.form.nameLabel')}}</ion-label>
               <ion-input type="text" v-model.trim="name.val" required/>
-              <p v-if="!name.isValid">Ime nije dobro</p>
+              <p v-if="!name.isValid">{{ $t('register.form.nameErrorMessage') }}</p>
             </ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label>
-              <ion-label>Telefon</ion-label>
+              <ion-label>{{ $t('register.form.phoneLabel')}}</ion-label>
               <ion-input type="tel" v-model.trim="phone.val" required/>
-              <p v-if="!phone.isValid">Telefon nije dobar</p>
+              <p v-if="!phone.isValid">{{ $t('register.form.phoneErrorMessage') }}</p>
             </ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label class="ion-padding-top">
-              <ion-label>Sifra</ion-label>
+              <ion-label>{{ $t('register.form.passwordLabel')}}</ion-label>
               <ion-input type="password" v-model="password.val" required/>
-              <p v-if="!password.isValid">Sifra mora da bude najmanje 6 karaktera</p>
+              <p v-if="!password.isValid">{{ $t('register.form.passwordErrorMessage') }}</p>
             </ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label class="ion-padding-top">
-              <ion-label>Sifra ponovljeno</ion-label>
+              <ion-label>{{ $t('register.form.passwordConfirmationLabel')}}</ion-label>
               <ion-input type="password" v-model="passwordConfirmation.val" required/>
-              <p v-if="!passwordConfirmation.isValid">Sifre se ne podudaraju</p>
+              <p v-if="!passwordConfirmation.isValid">{{ $t('register.form.passwordConfirmationErrorMessage') }}</p>
             </ion-label>
           </ion-item>
-          <p v-if="!formIsValid">Forma nije ok, ispravite polja</p>
+          <p v-if="!formIsValid">{{ $t('register.form.errorMessage') }}</p>
 
-          <ion-button type="submit" expand="block">Registruj se</ion-button>
-          <ion-button router-link="/login" fill="outline" expand="block">Prijavi se</ion-button>
+          <ion-button type="submit" expand="block">{{ $t('register.form.submitButton')}}</ion-button>
+          <ion-button router-link="/login" fill="outline" expand="block">{{ $t('register.loginButton')}}</ion-button>
         </ion-list>
       </form>
     </ion-content>

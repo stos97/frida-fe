@@ -7,21 +7,21 @@
         <ion-list>
           <ion-item>
             <ion-label>
-              <ion-label>Email</ion-label>
+              <ion-label>{{ $t('login.form.emailLabel') }}</ion-label>
               <ion-input type="email" v-model="email" required/>
             </ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label class="ion-padding-top">
-              <ion-label>Sifra</ion-label>
+              <ion-label>{{ $t('login.form.passwordLabel') }}</ion-label>
               <ion-input type="password" v-model="password" required/>
             </ion-label>
           </ion-item>
-          <p v-if="!formIsValid">Forma nije ok</p>
+          <p v-if="!formIsValid">{{ $t('login.form.errorMessage') }}</p>
 
-          <ion-button type="submit" expand="block">Prijavi se</ion-button>
-          <ion-button router-link="/register" fill="outline" expand="block">Registruj se</ion-button>
+          <ion-button type="submit" expand="block">{{ $t('login.form.submitButton') }}</ion-button>
+          <ion-button router-link="/register" fill="outline" expand="block">{{ $t('login.registerButton') }}</ion-button>
         </ion-list>
       </form>
     </ion-content>

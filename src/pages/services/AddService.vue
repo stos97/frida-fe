@@ -1,22 +1,22 @@
 <template>
   <base-layout>
-    <base-card title="Dodaj uslugu">
+    <base-card :title="$t('addService.titleLabel')">
       <form class="ion-padding" @submit.prevent="submitForm">
         <ion-item>
-          <ion-label position="stacked">Naziv</ion-label>
+          <ion-label position="stacked">{{ $t('addService.form.nameLabel') }}</ion-label>
           <ion-input type="text" v-model.trim="name" required/>
         </ion-item>
 
         <ion-item>
-          <ion-label>Kategorija</ion-label>
-          <ion-select v-model="category">
+          <ion-label>{{ $t('addService.form.categoryLabel') }}</ion-label>
+          <ion-select v-model="category" :cancel-text="$t('addService.form.cancelText')" :ok-text="$t('addService.form.okText')">
             <ion-select-option v-for="category in categories" :value="category.id">{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
-        <p v-if="!formIsValid">Forma nije validna</p>
+        <p v-if="!formIsValid">{{ $t('addService.form.errorMessage') }}</p>
         <p v-if="!!error">{{ error }}</p>
 
-        <ion-button type="submit" expand="block">Dodaj</ion-button>
+        <ion-button type="submit" expand="block">{{ $t('addService.form.submitButton') }}</ion-button>
       </form>
     </base-card>
   </base-layout>
