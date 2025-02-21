@@ -11,7 +11,7 @@
     </ion-buttons>
   </ion-item>
   <base-card v-if="showDetails">
-    <ion-card-title>Dodaci</ion-card-title>
+    <ion-card-title>{{ $t('additions.titleLabel') }}</ion-card-title>
     <addition-item
         @delete-addition="detachAddition"
         v-for="addition in service.additions"

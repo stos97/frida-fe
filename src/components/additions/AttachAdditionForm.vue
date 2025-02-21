@@ -1,8 +1,13 @@
 <template>
   <form @submit.prevent="submitForm">
     <ion-item>
-      <ion-label>Dodatak</ion-label>
-      <ion-select slot="end" v-model="additionId" @click="getAllAdditions">
+      <ion-label>{{ $t('services.attachAdditionForm.titleLabel') }}</ion-label>
+      <ion-select
+          slot="end"
+          :cancel-text="$t('services.attachAdditionForm.cancelText')"
+          :ok-text="$t('services.attachAdditionForm.okText')"
+          v-model="additionId"
+          @click="getAllAdditions">
         <ion-select-option
             v-for="addition in additions"
             :key="addition.id"
@@ -11,7 +16,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-button class="ion-margin-top" type="submit" expand="block">Dodaj</ion-button>
+    <ion-button class="ion-margin-top" type="submit" expand="block">{{ $t('services.attachAdditionForm.submitForm') }}</ion-button>
   </form>
 </template>
 

@@ -1,6 +1,7 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router/index.js';
+import {createI18n} from "vue-i18n";
 
 import {IonicVue} from '@ionic/vue';
 
@@ -39,7 +40,23 @@ import BaseLayout from "@/components/base/BaseLayout.vue";
 import TheMenu from "@/components/layout/TheMenu.vue";
 import BaseCard from "@/components/base/BaseCard.vue";
 
+import en from './i18n/en.js';
+import srb from './i18n/srb.js';
+
+const messages = {
+    en,
+    srb,
+};
+
+const i18n = createI18n({
+    legacy: false,
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages
+})
+
 const app = createApp(App)
+    .use(i18n)
     .use(IonicVue)
     .use(router)
     .use(store);

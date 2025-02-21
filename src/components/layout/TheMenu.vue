@@ -2,24 +2,27 @@
   <ion-menu side="end" menuId="menu" contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu</ion-title>
+        <ion-title>{{ $t('menu.titleLabel') }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item v-for="menuItem in menuItems" @click="navigateTo(menuItem.redirectTo)" :key="menuItem.redirectTo">{{ menuItem.menuName }}</ion-item>
-        <ion-item @click="logout">Odjavi se</ion-item>
+        <ion-item v-for="menuItem in menuItems" @click="navigateTo(menuItem.redirectTo)" :key="menuItem.redirectTo">
+          {{ menuItem.menuName }}
+        </ion-item>
+        <ion-item @click="logout">{{ $t('menu.logout') }}</ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import { menuController } from '@ionic/vue';
+import {ref, onMounted} from 'vue';
+import {useRouter} from 'vue-router';
+import {useStore} from 'vuex';
+import {menuController} from '@ionic/vue';
 import {IonTitle, IonHeader, IonItem, IonList, IonMenu, IonContent, IonToolbar} from "@ionic/vue";
+import {useI18n} from 'vue-i18n';
 
 export default {
   components: {IonTitle, IonHeader, IonItem, IonList, IonMenu, IonContent, IonToolbar},
@@ -27,19 +30,20 @@ export default {
     const menuItems = ref([]);
     const router = useRouter();
     const store = useStore();
+    const {t} = useI18n();
 
     const getMenuOptions = () => {
       const role = store.getters.user.role;
 
       if (role === 'admin') {
         return [
-          { redirectTo: '/admin', menuName: 'Pocetna' },
-          { redirectTo: '/categories', menuName: 'Kategorije' },
-          { redirectTo: '/services', menuName: 'Usluge' },
-          { redirectTo: '/additions', menuName: 'Dodaci' },
+          {redirectTo: '/admin', menuName: t('menu.admin.homepage')},
+          {redirectTo: '/categories', menuName: t('menu.admin.categories')},
+          {redirectTo: '/services', menuName: t('menu.admin.services')},
+          {redirectTo: '/additions', menuName: t('menu.admin.additions')},
         ];
       } else {
-        return [{ redirectTo: '/user', menuName: 'Users' }];
+        return [{redirectTo: '/user', menuName: 'Users'}];
       }
     };
 
