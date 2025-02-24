@@ -7,6 +7,7 @@ export default {
             categories: 'Categories',
             services: 'Services',
             additions: 'Additions',
+            workers: 'Workers',
         },
     },
     login: {
@@ -79,5 +80,9 @@ export default {
             okText: 'OK',
             submitButton: 'Add',
         }
+    },
+    workers: {
+        titleLabel: 'Workers',
+        phoneNumberLabel: 'Phone number',
     },
 }
