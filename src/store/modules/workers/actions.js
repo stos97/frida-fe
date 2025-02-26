@@ -17,5 +17,9 @@ export default {
         context.commit('setWorkers', {
             workers: responseData.data
         });
+    },
+    setCurrentWorker(context, payload) {
+        console.log(payload)
+        context.commit('setCurrentWorker', payload);
     }
 }
