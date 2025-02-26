@@ -7,6 +7,7 @@ export default {
             categories: 'Kategorije',
             services: 'Usluge',
             additions: 'Dodaci',
+            workers: 'Radnici',
         },
     },
     login: {
@@ -79,5 +80,17 @@ export default {
             okText: 'OK',
             submitButton: 'Dodaj',
         }
+    },
+    workers: {
+        titleLabel: 'Radnici',
+        phoneNumberLabel: 'Broj telefona',
+        detailsButtonLabel: 'Detalji',
+    },
+    workerServices: {
+        table: {
+            name: 'Naziv',
+            time: 'Potrebno vreme',
+            price: 'Cena',
+        },
     },
 }

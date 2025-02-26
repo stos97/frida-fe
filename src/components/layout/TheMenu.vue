@@ -41,6 +41,7 @@ export default {
           {redirectTo: '/categories', menuName: t('menu.admin.categories')},
           {redirectTo: '/services', menuName: t('menu.admin.services')},
           {redirectTo: '/additions', menuName: t('menu.admin.additions')},
+          {redirectTo: '/workers', menuName: t('menu.admin.workers')},
         ];
       } else {
         return [{redirectTo: '/user', menuName: 'Users'}];
