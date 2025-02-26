@@ -9,25 +9,45 @@
   <ion-item>
     Broj telefona: {{ worker.phone }}
   </ion-item>
+  <ion-item>
+    <ion-button @click="setCurrentWorker(worker)" >{{$t('workers.detailsButtonLabel')}}</ion-button>
+  </ion-item>
 </template>
 
 <script>
-import {IonItem, IonAvatar} from '@ionic/vue';
+import {IonItem, IonAvatar, IonButton} from '@ionic/vue';
 import {computed} from "vue";
+import {useStore} from 'vuex';
+import {useRouter} from "vue-router";
 
 export default {
   props: ['worker'],
-  components: {IonItem, IonAvatar},
+  components: {IonItem, IonAvatar, IonButton},
   setup(props) {
+    const store = useStore();
+    const router = useRouter();
 
     const image = computed(() => {
       const imagePath = props.worker.image_path ?? 'src/assets/default.jpg';
       const url = props.worker.image_path ? import.meta.env.VITE_API_BASE_URL : window.location.origin;
 
       return new URL(imagePath, url).href;
-    })
+    });
+
+    const updateLink = computed(() => '/workers/' + props.worker.id);
+
+    const setCurrentWorker = async (worker) => {
+      await store.dispatch('setCurrentWorker', {
+        worker: worker
+      });
+
+      await router.push(updateLink.value);
+    }
+
     return {
-      image
+      image,
+      updateLink,
+      setCurrentWorker
     }
   }
 }
