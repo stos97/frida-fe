@@ -4,5 +4,8 @@ export default {
     },
     setCurrentWorker(state, payload) {
         state.currentWorker = payload.worker;
-    }
+    },
+    setWorkerServices(state, payload) {
+        state.workerServices = payload.workerServices;
+    },
 }

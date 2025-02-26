@@ -7,6 +7,7 @@ export default {
         return {
             workers: [],
             currentWorker: null,
+            workerServices: [],
         }
     },
     getters,

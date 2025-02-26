@@ -5,4 +5,7 @@ export default {
     currentWorker(state) {
         return state.currentWorker;
     },
+    workerServices(state) {
+        return state.workerServices;
+    },
 }
