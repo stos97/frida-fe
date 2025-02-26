@@ -84,5 +84,13 @@ export default {
     workers: {
         titleLabel: 'Workers',
         phoneNumberLabel: 'Phone number',
+        detailsButtonLabel: 'Details',
+    },
+    workerServices: {
+        table: {
+            name: 'Name',
+            time: 'Time needed',
+            price: 'Price',
+        },
     },
 }

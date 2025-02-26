@@ -84,5 +84,13 @@ export default {
     workers: {
         titleLabel: 'Radnici',
         phoneNumberLabel: 'Broj telefona',
+        detailsButtonLabel: 'Detalji',
+    },
+    workerServices: {
+        table: {
+            name: 'Naziv',
+            time: 'Potrebno vreme',
+            price: 'Cena',
+        },
     },
 }
