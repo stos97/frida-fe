@@ -40,4 +40,27 @@ export default {
             workerServices: responseData.data,
         });
     },
+    async deleteWorkerService(context, payload) {
+        const workerId = payload.workerId;
+        const serviceId = payload.serviceId;
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/worker-service/' + workerId, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                service_id: serviceId,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete worker service!')
+        }
+
+        context.commit('deleteWorkerService', {
+            id: serviceId,
+        });
+    }
 }

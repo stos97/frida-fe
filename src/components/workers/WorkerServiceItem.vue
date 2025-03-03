@@ -4,7 +4,7 @@
       <ion-col @click="toggleDetails" size="7">{{ service.name }}</ion-col>
       <ion-col>{{ priceFormated }}</ion-col>
       <ion-col size="1">
-        <ion-icon @click="deleteWorkerService(service.id)" :icon="trashIcon"></ion-icon>
+        <ion-icon @click="handleDelete" :icon="trashIcon"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -31,14 +31,15 @@
 
 <script>
 
-import {IonItem, IonLabel, IonTitle, IonGrid, IonCol, IonRow, IonIcon} from '@ionic/vue';
+import {IonItem, IonLabel, IonTitle, IonGrid, IonCol, IonRow, IonIcon, IonButton, IonButtons} from '@ionic/vue';
 import {computed, ref} from "vue";
 import {trash} from "ionicons/icons";
 
 export default {
-  components: {IonIcon, IonItem, IonLabel, IonTitle, IonGrid, IonCol, IonRow},
+  components: {IonButtons, IonButton, IonIcon, IonItem, IonLabel, IonTitle, IonGrid, IonCol, IonRow},
   props: ['service', 'additions', 'price', 'minutesNeeded'],
-  setup(props) {
+  emits: ['delete-worker-service'],
+  setup(props, {emit}) {
     const priceFormated = ref(props.price + ' RSD');
     const showDetails = ref(false);
     const trashIcon = ref(trash);
@@ -58,8 +59,8 @@ export default {
       });
     });
 
-    const deleteWorkerService = (id) => {
-      console.log('delete', id);
+    const handleDelete = () => {
+      emit('delete-worker-service', props.service.id);
     }
 
     return {
@@ -68,7 +69,7 @@ export default {
       toggleDetails,
       formatedAdditions,
       trashIcon,
-      deleteWorkerService,
+      handleDelete,
     }
   }
 }
