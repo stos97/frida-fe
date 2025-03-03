@@ -97,6 +97,13 @@ const routes = [
         },
     },
     {
+        path: '/worker/:id/service/add',
+        component: () => import("@/pages/worker/WorkerAddServicePage.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
         path: '/:notFound(.*)', component: () => import("@/NotFound.vue")
     },
 ]

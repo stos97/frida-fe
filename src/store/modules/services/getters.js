@@ -16,4 +16,7 @@ export default {
 
         return transformedData;
     },
+    service(state) {
+        return state.service;
+    },
 }

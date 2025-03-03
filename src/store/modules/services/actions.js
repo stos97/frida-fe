@@ -1,6 +1,12 @@
 export default {
-    async getAllServices(context) {
-        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/services', {
+    async getAllServices(context, payload) {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL + '/services';
+        const params = {
+            worker_id: payload?.worker_id
+        };
+        const queryString = payload?.worker_id ? new URLSearchParams(params).toString() : '';
+
+        const response = await fetch(`${baseUrl}?${queryString}`, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -109,6 +115,26 @@ export default {
 
         context.commit('addService', {
             service: responseData.data
+        });
+    },
+    async getServiceById(context, payload) {
+        const id = payload.id;
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/services/' + id, {
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+        });
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            throw new Error(responseData.message || 'Failed to fetch service!');
+        }
+
+        context.commit('setService', {
+            service: responseData.data,
         });
     }
 }

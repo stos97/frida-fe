@@ -5,7 +5,8 @@ import mutations from './mutations.js';
 export default {
     state() {
         return {
-            services: []
+            services: [],
+            service: null,
         }
     },
     getters,
