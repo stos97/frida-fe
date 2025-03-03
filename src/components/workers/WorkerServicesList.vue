@@ -60,3 +60,9 @@ export default {
   }
 }
 </script>
+
+<style>
+ion-grid {
+  color: var(--ion-text-color);
+}
+</style>
