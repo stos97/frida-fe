@@ -83,6 +83,20 @@ const routes = [
         },
     },
     {
+        path: '/workers',
+        component: () => import("@/pages/worker/WorkersPage.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
+        path: '/workers/:id',
+        component: () => import("@/pages/worker/WorkerDetails.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
         path: '/:notFound(.*)', component: () => import("@/NotFound.vue")
     },
 ]
