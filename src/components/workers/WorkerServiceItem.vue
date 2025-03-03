@@ -2,45 +2,48 @@
   <ion-grid>
     <ion-row>
       <ion-col @click="toggleDetails" size="7">{{ service.name }}</ion-col>
-      <ion-col>{{ priceFormated }}</ion-col>
+      <ion-col>{{ formatPrice(price) }}</ion-col>
       <ion-col size="1">
         <ion-icon @click="handleDelete" :icon="trashIcon"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>
   <base-card v-if="showDetails">
-    <ion-item>
-      <ion-label>{{ $t('workerServices.table.time') }}: {{ minutesNeeded }} min</ion-label>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>{{ $t('workerServices.table.time') }}: {{ formatMinutes(minutesNeeded) }}</ion-col>
+      </ion-row>
+    </ion-grid>
 
     <div v-if="formatedAdditions.length > 0">
       <ion-title class="ion-text-center">{{ $t('additions.titleLabel') }}</ion-title>
-      <ion-item>
-        <ion-label slot="start">{{ $t('workerServices.table.name') }}</ion-label>
-        <ion-label slot="end">{{ $t('workerServices.table.price') }}</ion-label>
-        <ion-label slot="end">{{ $t('workerServices.table.price') }}</ion-label>
-      </ion-item>
-      <ion-item v-for="addition in formatedAdditions" :key="addition.id">
-        <ion-label slot="start">{{ addition.name }}</ion-label>
-        <ion-label slot="end">{{ addition.price }}</ion-label>
-        <ion-label slot="end">{{ addition.minutesNeeded }}</ion-label>
-      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>{{ $t('workerServices.table.name') }}</ion-col>
+          <ion-col>{{ $t('workerServices.table.price') }}</ion-col>
+          <ion-col>{{ $t('workerServices.table.time') }}</ion-col>
+        </ion-row>
+        <ion-row v-for="addition in formatedAdditions" :key="addition.id">
+          <ion-col>{{addition.name}}</ion-col>
+          <ion-col>{{formatPrice(addition.price)}}</ion-col>
+          <ion-col>{{formatMinutes(addition.minutesNeeded)}}</ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </base-card>
 </template>
 
 <script>
 
-import {IonItem, IonLabel, IonTitle, IonGrid, IonCol, IonRow, IonIcon, IonButton, IonButtons} from '@ionic/vue';
+import {IonTitle, IonGrid, IonCol, IonRow, IonIcon, IonButton, IonButtons} from '@ionic/vue';
 import {computed, ref} from "vue";
 import {trash} from "ionicons/icons";
 
 export default {
-  components: {IonButtons, IonButton, IonIcon, IonItem, IonLabel, IonTitle, IonGrid, IonCol, IonRow},
+  components: {IonButtons, IonButton, IonIcon, IonTitle, IonGrid, IonCol, IonRow},
   props: ['service', 'additions', 'price', 'minutesNeeded'],
   emits: ['delete-worker-service'],
   setup(props, {emit}) {
-    const priceFormated = ref(props.price + ' RSD');
     const showDetails = ref(false);
     const trashIcon = ref(trash);
 
@@ -61,25 +64,30 @@ export default {
 
     const handleDelete = () => {
       emit('delete-worker-service', props.service.id);
-    }
+    };
+
+    const formatPrice = (price) => {
+      return price + ' RSD';
+    };
+
+    const formatMinutes = (minutes) => {
+      return minutes + ' min';
+    };
 
     return {
-      priceFormated,
       showDetails,
       toggleDetails,
       formatedAdditions,
       trashIcon,
       handleDelete,
+      formatPrice,
+      formatMinutes,
     }
   }
 }
 </script>
 
 <style scoped>
-ion-item {
-  --background: rgba(255, 255, 255, 0.1);
-  --border-style: none;
-}
 
 ion-card {
   background: rgba(255, 255, 255, 0.1);
