@@ -1,9 +1,12 @@
 <template>
   <base-card v-for="(listOfWorkerServices, name) in workerServices" :key="name" :title="name">
-    <ion-item>
-      <ion-label slot="start">{{$t('workerServices.table.name')}}</ion-label>
-      <ion-label slot="end">{{$t('workerServices.table.price')}}</ion-label>
-    </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">{{$t('workerServices.table.name')}}</ion-col>
+          <ion-col>{{$t('workerServices.table.price')}}</ion-col>
+          <ion-col size="2"></ion-col>
+        </ion-row>
+      </ion-grid>
     <worker-service-item
         v-for="workerService in listOfWorkerServices"
         :key="workerService.id"
@@ -20,18 +23,10 @@
 <script>
 import BaseCard from "@/components/base/BaseCard.vue";
 import WorkerServiceItem from "@/components/workers/WorkerServiceItem.vue";
-import {IonItem, IonLabel} from "@ionic/vue";
+import {IonGrid, IonCol, IonRow} from "@ionic/vue";
 
 export default {
-  components: {IonLabel, IonItem, WorkerServiceItem, BaseCard},
+  components: {WorkerServiceItem, BaseCard, IonGrid, IonCol, IonRow},
   props: ['workerServices'],
 }
 </script>
-
-<style scoped>
-ion-item {
-  --background: rgba(255, 255, 255, 0.1);
-  --border-style: none;
-}
-
-</style>
