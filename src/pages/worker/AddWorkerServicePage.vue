@@ -46,13 +46,9 @@
 
             </ion-item-group>
           </ion-item>
-
         </ion-item-group>
 
-        <ion-button class="ion-margin-top" type="submit" expand="block">{{
-            $t('addAddition.form.submitButton')
-          }}
-        </ion-button>
+        <ion-button class="ion-margin-top" type="submit" expand="block">{{$t('addAddition.form.submitButton') }}</ion-button>
       </form>
     </base-card>
   </base-layout>
@@ -75,39 +71,33 @@ export default {
 
     const isLoading = ref(false);
     const workerId = route.params.id;
-    const selectedService = ref(null);
+    const selectedService = ref(false);
     const price = ref(null);
     const timeNeeded = ref(null);
 
     const availableService = computed(() => store.getters.services);
-    const availableAdditions = computed(() => store.getters.service.additions);
-    const priceData = ref([]);
-    const timeData = ref([]);
+    const availableAdditions = computed(() => store.getters.service?.additions);
+    const additionsPrices = ref([]);
+    const additionsTimeNeeded = ref([]);
 
-    watch(selectedService, async (newValue, _) => {
-      try {
-        await store.dispatch('getServiceById', {
-          id: newValue
-        });
-      } catch (err) {
-      }
-    });
-
-    const submitForm = async () => {
+    const getFormattedAdditions = () => {
       const formattedAdditions = [];
 
-      console.log(priceData.value.keys())
-
       for (const addition of availableAdditions.value) {
-        if (priceData.value.hasOwnProperty(addition.id) || timeData.value.hasOwnProperty(addition.id)) {
+        if (additionsPrices.value.hasOwnProperty(addition.id) || additionsTimeNeeded.value.hasOwnProperty(addition.id)) {
           formattedAdditions.push({
             addition_id: addition.id,
-            price: priceData.value[addition.id] ?? 0,
-            minutesNeeded: timeData.value[addition.id] ?? 0,
+            price: additionsPrices.value[addition.id] ?? 0,
+            minutesNeeded: additionsTimeNeeded.value[addition.id] ?? 0,
           });
         }
       }
 
+      return formattedAdditions;
+    }
+
+    const submitForm = async () => {
+      const formattedAdditions = getFormattedAdditions();
 
       try {
         await store.dispatch('addServiceToWorker', {
@@ -121,7 +111,7 @@ export default {
 
       }
 
-      await router.replace('/workers/' + workerId);
+      await router.replace('/workers/' + workerId + '/details');
     };
 
     const getAllService = async () => {
@@ -142,6 +132,15 @@ export default {
       await getAllService();
     });
 
+    watch(selectedService, async (newValue, _) => {
+      try {
+        await store.dispatch('getServiceById', {
+          id: newValue
+        });
+      } catch (err) {
+      }
+    });
+
     return {
       availableService,
       selectedService,
@@ -149,8 +148,8 @@ export default {
       submitForm,
       price,
       timeNeeded,
-      timeData,
-      priceData,
+      timeData: additionsTimeNeeded,
+      priceData: additionsPrices,
     }
   }
 }

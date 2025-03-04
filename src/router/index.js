@@ -90,7 +90,7 @@ const routes = [
         },
     },
     {
-        path: '/workers/:id',
+        path: '/workers/:id/details',
         component: () => import("@/pages/worker/WorkerDetails.vue"),
         meta: {
             authRequired: true,
@@ -98,7 +98,7 @@ const routes = [
     },
     {
         path: '/worker/:id/service/add',
-        component: () => import("@/pages/worker/WorkerAddServicePage.vue"),
+        component: () => import("@/pages/worker/AddWorkerServicePage.vue"),
         meta: {
             authRequired: true,
         },

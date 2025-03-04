@@ -15,7 +15,7 @@
 <script>
 
 import {useRoute} from "vue-router";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watchEffect} from "vue";
 import {useStore} from 'vuex';
 import {IonFab, IonFabButton, IonIcon, IonTitle} from "@ionic/vue";
 import WorkerServicesList from "@/components/workers/WorkerServicesList.vue";
@@ -53,6 +53,13 @@ export default {
     onMounted(async () => {
       await getWorkerServices();
     })
+
+    watchEffect(async () => {
+      const regex = /^\/workers\/\d+\/details$/;
+      if (regex.test(route.path)) {
+        await getWorkerServices();
+      }
+    });
 
     return {
       isLoading,

@@ -34,7 +34,7 @@ export default {
       return new URL(imagePath, url).href;
     });
 
-    const updateLink = computed(() => '/workers/' + props.worker.id);
+    const updateLink = computed(() => '/workers/' + props.worker.id + '/details');
 
     const setCurrentWorker = async (worker) => {
       await store.dispatch('setCurrentWorker', {
