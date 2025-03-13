@@ -19,4 +19,7 @@ export default {
     service(state) {
         return state.service;
     },
+    editedService(state) {
+        return state.editedService;
+    },
 }

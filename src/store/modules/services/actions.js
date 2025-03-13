@@ -136,5 +136,27 @@ export default {
         context.commit('setService', {
             service: responseData.data,
         });
+    },
+    async getServiceByWorkerId(context, payload) {
+        const serviceId = payload.serviceId;
+        const workerId = payload.workerId;
+
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + `/worker/${workerId}/service/${serviceId}`, {
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+        });
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch service by worker id!');
+        }
+
+        context.commit('setEditedServices', {
+            editedService: responseData.data
+        });
     }
 }

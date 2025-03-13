@@ -7,6 +7,7 @@ export default {
         return {
             services: [],
             service: null,
+            editedService: null,
         }
     },
     getters,

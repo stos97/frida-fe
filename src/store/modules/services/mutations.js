@@ -17,4 +17,7 @@ export default {
     setService(state, payload) {
         state.service = payload.service;
     },
+    setEditedServices(state, payload) {
+        state.editedService = payload.editedService;
+    },
 }

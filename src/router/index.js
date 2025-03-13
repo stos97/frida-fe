@@ -97,6 +97,13 @@ const routes = [
         },
     },
     {
+        path: '/worker/:workerId/service/:serviceId',
+        component: () => import("@/pages/worker/EditWorkerService.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
         path: '/worker/:id/service/add',
         component: () => import("@/pages/worker/AddWorkerServicePage.vue"),
         meta: {

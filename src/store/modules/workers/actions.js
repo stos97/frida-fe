@@ -85,5 +85,27 @@ export default {
         if (!response.ok) {
             throw new Error(responseData.message || 'Failed to create worker service')
         }
+    },
+    async updateWorkerService(context, payload) {
+        const workerId = payload.workerId;
+        const serviceId = payload.serviceId;
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + `/worker/${workerId}/service/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                service_id: serviceId,
+                price: payload.price,
+                minutesNeeded: payload.minutesNeeded,
+                additions: payload.additions
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update worker service!');
+        }
     }
 }
