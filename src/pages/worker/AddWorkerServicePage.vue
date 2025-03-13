@@ -20,7 +20,7 @@
         </ion-item>
         <ion-item>
           <ion-label>Vreme porebno</ion-label>
-          <ion-input type="number" v-model="timeNeeded" required/>
+          <ion-input type="number" v-model="minutesNeeded" required/>
         </ion-item>
 
         <ion-item-group v-if="selectedService">
@@ -36,12 +36,12 @@
 
               <ion-item>
                 <ion-label>Cena</ion-label>
-                <ion-input type="number" v-model.number="priceData[addition.id]"/>
+                <ion-input type="number" v-model.number="addition.price"/>
               </ion-item>
 
               <ion-item lines="none">
                 <ion-label>Vreme</ion-label>
-                <ion-input type="number" v-model.number="timeData[addition.id]"/>
+                <ion-input type="number" v-model.number="addition.minutesNeeded"/>
               </ion-item>
 
             </ion-item-group>
@@ -73,22 +73,20 @@ export default {
     const workerId = route.params.id;
     const selectedService = ref(false);
     const price = ref(null);
-    const timeNeeded = ref(null);
+    const minutesNeeded = ref(null);
 
     const availableService = computed(() => store.getters.services);
     const availableAdditions = computed(() => store.getters.service?.additions);
-    const additionsPrices = ref([]);
-    const additionsTimeNeeded = ref([]);
 
     const getFormattedAdditions = () => {
       const formattedAdditions = [];
 
       for (const addition of availableAdditions.value) {
-        if (additionsPrices.value.hasOwnProperty(addition.id) || additionsTimeNeeded.value.hasOwnProperty(addition.id)) {
+        if (addition.hasOwnProperty('price') || addition.hasOwnProperty('minutesNeeded')) {
           formattedAdditions.push({
             addition_id: addition.id,
-            price: additionsPrices.value[addition.id] ?? 0,
-            minutesNeeded: additionsTimeNeeded.value[addition.id] ?? 0,
+            price: addition.price ?? 0,
+            minutesNeeded: addition.minutesNeeded ?? 0,
           });
         }
       }
@@ -104,7 +102,7 @@ export default {
           serviceId: selectedService.value,
           workerId: workerId,
           price: price.value,
-          minutesNeeded: timeNeeded.value,
+          minutesNeeded: minutesNeeded.value,
           additions: formattedAdditions,
         });
       } catch (err) {
@@ -147,9 +145,7 @@ export default {
       availableAdditions,
       submitForm,
       price,
-      timeNeeded,
-      timeData: additionsTimeNeeded,
-      priceData: additionsPrices,
+      minutesNeeded,
     }
   }
 }
