@@ -1,67 +1,59 @@
 <template>
-  <ion-page>
-    <ion-content>
+  <base-layout :show-header="false">
+    <base-card>
+
       <base-spinner v-if="isLoading"></base-spinner>
       <p v-if="!!error">{{ error }}</p>
       <form class="ion-padding" @submit.prevent="submitForm">
-        <ion-list>
+
           <ion-item>
-            <ion-label>
-              <ion-label>{{ $t('register.form.emailLabel')}}</ion-label>
-              <ion-input type="email" v-model.trim="email.val" required/>
+              <ion-label position="floating">{{ $t('register.form.emailLabel') }}</ion-label>
+              <ion-input class="ion-margin-top" type="email" v-model.trim="email.val" required/>
               <p v-if="!email.isValid">{{ $t('register.form.emailErrorMessage') }}</p>
-            </ion-label>
+
           </ion-item>
 
           <ion-item>
-            <ion-label>
-              <ion-label>{{ $t('register.form.nameLabel')}}</ion-label>
-              <ion-input type="text" v-model.trim="name.val" required/>
+              <ion-label position="floating">{{ $t('register.form.nameLabel') }}</ion-label>
+              <ion-input class="ion-margin-top" type="text" v-model.trim="name.val" required/>
               <p v-if="!name.isValid">{{ $t('register.form.nameErrorMessage') }}</p>
-            </ion-label>
           </ion-item>
 
           <ion-item>
-            <ion-label>
-              <ion-label>{{ $t('register.form.phoneLabel')}}</ion-label>
-              <ion-input type="tel" v-model.trim="phone.val" required/>
+              <ion-label position="floating">{{ $t('register.form.phoneLabel') }}</ion-label>
+              <ion-input class="ion-margin-top" type="tel" v-model.trim="phone.val" required/>
               <p v-if="!phone.isValid">{{ $t('register.form.phoneErrorMessage') }}</p>
-            </ion-label>
           </ion-item>
 
           <ion-item>
-            <ion-label class="ion-padding-top">
-              <ion-label>{{ $t('register.form.passwordLabel')}}</ion-label>
-              <ion-input type="password" v-model="password.val" required/>
+              <ion-label position="floating">{{ $t('register.form.passwordLabel') }}</ion-label>
+              <ion-input class="ion-margin-top" type="password" v-model="password.val" required/>
               <p v-if="!password.isValid">{{ $t('register.form.passwordErrorMessage') }}</p>
-            </ion-label>
           </ion-item>
 
           <ion-item>
-            <ion-label class="ion-padding-top">
-              <ion-label>{{ $t('register.form.passwordConfirmationLabel')}}</ion-label>
-              <ion-input type="password" v-model="passwordConfirmation.val" required/>
+              <ion-label position="floating">{{ $t('register.form.passwordConfirmationLabel') }}</ion-label>
+              <ion-input class="ion-margin-top" type="password" v-model="passwordConfirmation.val" required/>
               <p v-if="!passwordConfirmation.isValid">{{ $t('register.form.passwordConfirmationErrorMessage') }}</p>
-            </ion-label>
           </ion-item>
           <p v-if="!formIsValid">{{ $t('register.form.errorMessage') }}</p>
 
-          <ion-button type="submit" expand="block">{{ $t('register.form.submitButton')}}</ion-button>
-          <ion-button router-link="/login" fill="outline" expand="block">{{ $t('register.loginButton')}}</ion-button>
-        </ion-list>
+          <ion-button type="submit" expand="block">{{ $t('register.form.submitButton') }}</ion-button>
+          <ion-button router-link="/login" fill="outline" expand="block">{{ $t('register.loginButton') }}</ion-button>
       </form>
-    </ion-content>
-  </ion-page>
+    </base-card>
+  </base-layout>
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
-import { IonButton, IonInput, IonItem, IonLabel, IonList, IonPage, IonContent } from '@ionic/vue';
+import {ref, reactive} from 'vue';
+import {IonButton, IonInput, IonItem, IonLabel} from '@ionic/vue';
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
+import BaseLayout from "@/components/base/BaseLayout.vue";
 
 export default {
-  components: { IonInput, IonLabel, IonList, IonItem, IonButton, IonPage, IonContent },
+  components: {BaseLayout, IonInput, IonLabel, IonItem, IonButton},
 
   setup() {
     const store = useStore();
@@ -163,3 +155,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ion-item {
+  --background: rgba(255, 255, 255, 0.1);
+}
+</style>

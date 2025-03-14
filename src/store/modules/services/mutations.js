@@ -13,5 +13,11 @@ export default {
     },
     addService(state, payload) {
         state.services.push(payload.service);
-    }
+    },
+    setService(state, payload) {
+        state.service = payload.service;
+    },
+    setEditedServices(state, payload) {
+        state.editedService = payload.editedService;
+    },
 }

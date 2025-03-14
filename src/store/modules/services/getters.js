@@ -16,4 +16,10 @@ export default {
 
         return transformedData;
     },
+    service(state) {
+        return state.service;
+    },
+    editedService(state) {
+        return state.editedService;
+    },
 }

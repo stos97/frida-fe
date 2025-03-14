@@ -1,44 +1,39 @@
 <template>
-  <ion-page>
-    <ion-content>
+  <base-layout :show-header="false" >
+    <base-card>
       <base-spinner v-if="isLoading"></base-spinner>
       <p v-if="!!error">{{ error }}</p>
       <form class="ion-padding" @submit.prevent="submitForm">
-        <ion-list>
-          <ion-item>
-            <ion-label>
-              <ion-label>{{ $t('login.form.emailLabel') }}</ion-label>
-              <ion-input type="email" v-model="email" required/>
-            </ion-label>
-          </ion-item>
+        <ion-item>
+          <ion-label position="floating">{{ $t('login.form.emailLabel') }}</ion-label>
+          <ion-input class="ion-margin-top" type="email" v-model="email" required/>
+        </ion-item>
 
-          <ion-item>
-            <ion-label class="ion-padding-top">
-              <ion-label>{{ $t('login.form.passwordLabel') }}</ion-label>
-              <ion-input type="password" v-model="password" required/>
-            </ion-label>
-          </ion-item>
-          <p v-if="!formIsValid">{{ $t('login.form.errorMessage') }}</p>
+        <ion-item>
+          <ion-label position="floating">{{ $t('login.form.passwordLabel') }}</ion-label>
+          <ion-input class="ion-margin-top" type="password" v-model="password" required/>
+        </ion-item>
+        <p v-if="!formIsValid">{{ $t('login.form.errorMessage') }}</p>
 
-          <ion-button type="submit" expand="block">{{ $t('login.form.submitButton') }}</ion-button>
-          <ion-button router-link="/register" fill="outline" expand="block">{{ $t('login.registerButton') }}</ion-button>
-        </ion-list>
+        <ion-button class="ion-margin-top" type="submit" expand="block">{{ $t('login.form.submitButton') }}</ion-button>
+        <ion-button router-link="/register" fill="outline" expand="block">{{ $t('login.registerButton') }}</ion-button>
       </form>
-    </ion-content>
-  </ion-page>
+    </base-card>
+  </base-layout>
 </template>
 
 <script>
 import {ref} from 'vue';
 import {useStore} from 'vuex';
 import {useRouter} from 'vue-router';
-import {IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonButton} from "@ionic/vue";
+import {IonItem, IonLabel, IonInput, IonButton} from "@ionic/vue";
+import BaseLayout from "@/components/base/BaseLayout.vue";
+import BaseCard from "@/components/base/BaseCard.vue";
 
 export default {
   components: {
-    IonPage,
-    IonContent,
-    IonList,
+    BaseCard,
+    BaseLayout,
     IonLabel,
     IonInput,
     IonItem,
@@ -93,3 +88,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+ion-item {
+  --background: rgba(255, 255, 255, 0.1);
+}
+</style>

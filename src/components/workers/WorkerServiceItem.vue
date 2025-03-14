@@ -6,6 +6,9 @@
       <ion-col size="1">
         <ion-icon @click="handleDelete" :icon="trashIcon"></ion-icon>
       </ion-col>
+      <ion-col size="1">
+        <ion-icon @click="handleEdit" :icon="editIcon"></ion-icon>
+      </ion-col>
     </ion-row>
   </ion-grid>
   <base-card v-if="showDetails">
@@ -24,9 +27,9 @@
           <ion-col>{{ $t('workerServices.table.time') }}</ion-col>
         </ion-row>
         <ion-row v-for="addition in formatedAdditions" :key="addition.id">
-          <ion-col>{{addition.name}}</ion-col>
-          <ion-col>{{formatPrice(addition.price)}}</ion-col>
-          <ion-col>{{formatMinutes(addition.minutesNeeded)}}</ion-col>
+          <ion-col>{{ addition.name }}</ion-col>
+          <ion-col>{{ formatPrice(addition.price) }}</ion-col>
+          <ion-col>{{ formatMinutes(addition.minutesNeeded) }}</ion-col>
         </ion-row>
       </ion-grid>
     </div>
@@ -37,15 +40,23 @@
 
 import {IonTitle, IonGrid, IonCol, IonRow, IonIcon, IonButton, IonButtons} from '@ionic/vue';
 import {computed, ref} from "vue";
-import {trash} from "ionicons/icons";
+import {trash, createOutline} from "ionicons/icons";
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
 
 export default {
   components: {IonButtons, IonButton, IonIcon, IonTitle, IonGrid, IonCol, IonRow},
   props: ['service', 'additions', 'price', 'minutesNeeded'],
   emits: ['delete-worker-service'],
   setup(props, {emit}) {
+    const store = useStore();
+    const router = useRouter();
+
     const showDetails = ref(false);
     const trashIcon = ref(trash);
+    const editIcon = ref(createOutline);
+
+    const worker = computed(() => store.getters.currentWorker);
 
     const toggleDetails = () => {
       showDetails.value = !showDetails.value;
@@ -66,6 +77,10 @@ export default {
       emit('delete-worker-service', props.service.id);
     };
 
+    const handleEdit = async () => {
+      await router.push(`/worker/${worker.value.id}/service/${props.service.id}`);
+    }
+
     const formatPrice = (price) => {
       return price + ' RSD';
     };
@@ -79,7 +94,9 @@ export default {
       toggleDetails,
       formatedAdditions,
       trashIcon,
+      editIcon,
       handleDelete,
+      handleEdit,
       formatPrice,
       formatMinutes,
     }

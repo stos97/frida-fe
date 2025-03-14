@@ -93,4 +93,21 @@ export default {
             price: 'Cena',
         },
     },
+    addWorkerService: {
+        titleLabel: 'Dodaj uslugu',
+        form: {
+            serviceLabel: 'Usluga',
+            priceLabel: 'Cena',
+            timeLabel: 'Potrebno vreme',
+            additionsLabel: 'Dodaci',
+        }
+    },
+    editWorkerService: {
+        form: {
+            serviceLabel: 'Usluga',
+            priceLabel: 'Cena',
+            timeLabel: 'Potrebno vreme',
+            additionsLabel: 'Dodaci',
+        }
+    },
 }

@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-      <ion-header>
+      <ion-header v-if="showHeader">
         <ion-toolbar>
           <ion-buttons slot="start">
             <ion-back-button
@@ -38,6 +38,10 @@ export default defineComponent({
     showBackButton: {
       type: Boolean,
       default: true
+    },
+    showHeader: {
+      type: Boolean,
+      default: true,
     }
   },
   components: {
