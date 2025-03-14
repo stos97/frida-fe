@@ -26,8 +26,8 @@ export default {
   props: ['worker'],
   setup() {
     const store = useStore();
-
     const route = useRoute();
+
     const isLoading = ref(false);
     const error = ref(null);
     const addIcon = ref(add);
@@ -41,7 +41,7 @@ export default {
 
       try {
         await store.dispatch('getWorkerServices', {
-          id: workerId
+          id: route.params.id
         });
       } catch (err) {
         error.value = err.message || 'Failed to fetch worker services';

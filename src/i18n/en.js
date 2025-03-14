@@ -93,4 +93,21 @@ export default {
             price: 'Price',
         },
     },
+    addWorkerService: {
+        titleLabel: 'Add Service',
+        form: {
+            serviceLabel: 'Service',
+            priceLabel: 'Price',
+            timeLabel: 'Time needed',
+            additionsLabel: 'Additions',
+        }
+    },
+    editWorkerService: {
+        form: {
+            serviceLabel: 'Service',
+            priceLabel: 'Price',
+            timeLabel: 'Time needed',
+            additionsLabel: 'Additions',
+        }
+    },
 }

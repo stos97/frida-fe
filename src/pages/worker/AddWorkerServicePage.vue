@@ -1,9 +1,9 @@
 <template>
   <base-layout>
-    <base-card title="dodaj service">
+    <base-card :title="$t('addWorkerService.titleLabel')">
       <form class="ion-padding" @submit.prevent="submitForm">
         <ion-item>
-          <ion-label>Usluga</ion-label>
+          <ion-label>{{ $t('addWorkerService.form.serviceLabel')}}</ion-label>
           <ion-select v-model="selectedService">
             <ion-select-option
                 v-for="service in availableService"
@@ -15,17 +15,17 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Cena</ion-label>
+          <ion-label>{{ $t('addWorkerService.form.priceLabel')}}</ion-label>
           <ion-input type="number" v-model="price" required/>
         </ion-item>
         <ion-item>
-          <ion-label>Vreme porebno</ion-label>
+          <ion-label>{{ $t('addWorkerService.form.timeLabel')}}</ion-label>
           <ion-input type="number" v-model="minutesNeeded" required/>
         </ion-item>
 
         <ion-item-group v-if="selectedService">
           <ion-item>
-            <ion-label>Dodaci</ion-label>
+            <ion-label>{{ $t('addWorkerService.form.additionsLabel')}}</ion-label>
           </ion-item>
 
           <ion-item v-for="addition in availableAdditions" :key="addition.id">
@@ -35,12 +35,12 @@
               </ion-item>
 
               <ion-item>
-                <ion-label>Cena</ion-label>
+                <ion-label>{{ $t('addWorkerService.form.priceLabel')}}</ion-label>
                 <ion-input type="number" v-model.number="addition.price"/>
               </ion-item>
 
               <ion-item lines="none">
-                <ion-label>Vreme</ion-label>
+                <ion-label>{{ $t('addWorkerService.form.timeLabel')}}</ion-label>
                 <ion-input type="number" v-model.number="addition.minutesNeeded"/>
               </ion-item>
 
