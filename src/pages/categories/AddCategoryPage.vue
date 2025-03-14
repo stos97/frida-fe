@@ -3,8 +3,8 @@
     <base-card :title="$t('addCategory.titleLabel')">
       <form class="ion-padding" @submit.prevent="submitForm">
           <ion-item>
-              <ion-label position="stacked">{{ $t('addCategory.form.nameLabel') }}</ion-label>
-              <ion-input type="text" v-model.trim="name" required/>
+              <ion-label position="floating">{{ $t('addCategory.form.nameLabel') }}</ion-label>
+              <ion-input class="ion-margin-top" type="text" v-model.trim="name" required/>
           </ion-item>
 
           <ion-button type="submit" expand="block">{{ $t('addCategory.form.submitButton') }}</ion-button>

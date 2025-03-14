@@ -49,7 +49,7 @@ const routes = [
     },
     {
         path: '/categories/add',
-        component: () => import("@/pages/categories/AddCategory.vue"),
+        component: () => import("@/pages/categories/AddCategoryPage.vue"),
         meta: {
             authRequired: true,
         },
@@ -63,7 +63,7 @@ const routes = [
     },
     {
         path: '/services/add',
-        component: () => import("@/pages/services/AddService.vue"),
+        component: () => import("@/pages/services/AddServicePage.vue"),
         meta: {
             authRequired: true,
         },
@@ -77,7 +77,7 @@ const routes = [
     },
     {
         path: '/additions/add',
-        component: () => import("@/pages/additions/AddAddition.vue"),
+        component: () => import("@/pages/additions/AddAdditionPage.vue"),
         meta: {
             authRequired: true,
         },
@@ -91,7 +91,7 @@ const routes = [
     },
     {
         path: '/workers/:id/details',
-        component: () => import("@/pages/worker/WorkerDetails.vue"),
+        component: () => import("@/pages/worker/WorkerDetailsPage.vue"),
         meta: {
             authRequired: true,
         },

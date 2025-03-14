@@ -18,24 +18,24 @@
             <ion-label>{{ $t('editWorkerService.form.additionsLabel') }}</ion-label>
           </ion-item>
 
-          <ion-item v-for="addition in availableAdditions" :key="addition.id">
+          <div v-for="addition in availableAdditions" :key="addition.id">
             <ion-item-group>
               <ion-item lines="none">
                 <ion-label>{{ addition.name }}</ion-label>
               </ion-item>
 
               <ion-item>
-                <ion-label>{{ $t('editWorkerService.form.priceLabel') }}</ion-label>
-                <ion-input type="number" :value="addition.price" v-model.number="addition.price"/>
+                <ion-label position="floating">{{ $t('editWorkerService.form.priceLabel') }}</ion-label>
+                <ion-input class="ion-margin-top" type="number" :value="addition.price" v-model.number="addition.price"/>
               </ion-item>
 
-              <ion-item lines="none">
-                <ion-label>{{ $t('editWorkerService.form.timeLabel') }}</ion-label>
-                <ion-input type="number" :value="addition.minutesNeeded" v-model.number="addition.minutesNeeded"/>
+              <ion-item>
+                <ion-label position="floating">{{ $t('editWorkerService.form.timeLabel') }}</ion-label>
+                <ion-input class="ion-margin-top" type="number" :value="addition.minutesNeeded" v-model.number="addition.minutesNeeded"/>
               </ion-item>
 
             </ion-item-group>
-          </ion-item>
+          </div>
         </ion-item-group>
 
         <ion-button class="ion-margin-top" type="submit" expand="block">update</ion-button>

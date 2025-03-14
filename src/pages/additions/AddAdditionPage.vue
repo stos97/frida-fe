@@ -10,8 +10,8 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">{{ $t('addAddition.form.nameLabel') }}</ion-label>
-          <ion-input type="text" v-model.trim="name" required/>
+          <ion-label position="floating">{{ $t('addAddition.form.nameLabel') }}</ion-label>
+          <ion-input class="ion-margin-top" type="text" v-model.trim="name" required/>
         </ion-item>
 
         <ion-button class="ion-margin-top" type="submit" expand="block">{{ $t('addAddition.form.submitButton') }}</ion-button>
